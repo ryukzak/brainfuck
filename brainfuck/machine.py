@@ -65,12 +65,14 @@ class DataPath():
         self.output_buffer = []
 
     def latch_data_addr(self, sel):
+        assert sel in {Opcode.LEFT.value, Opcode.RIGHT.value}, \
+            "internal error, incorect selector: {}".format(sel)
+
         if sel == Opcode.LEFT.value:
             self.data_address -= 1
         elif sel == Opcode.RIGHT.value:
             self.data_address += 1
-        else:
-            assert False, "internal error, incorect selector: {}".format(sel)
+
         assert 0 <= self.data_address < self.data_memory_size, \
             "out of memory: {}".format(self.data_address)
 
@@ -93,13 +95,16 @@ class DataPath():
 
     def wr(self, sel):
         """wr (от WRite), сохранить в память."""
+        assert sel in {Opcode.INC.value, Opcode.DEC.value, Opcode.INPUT.value}, \
+            "internal error, incorect selector: {}".format(sel)
+
         if sel == Opcode.INC.value:
             self.data_memory[self.data_address] = self.acc + 1
             if self.data_memory[self.data_address] == 128:
-                self.data_memory[self.data_address] = -127
+                self.data_memory[self.data_address] = -128
         elif sel == Opcode.DEC.value:
             self.data_memory[self.data_address] = self.acc - 1
-            if self.data_memory[self.data_address] == -128:
+            if self.data_memory[self.data_address] == -129:
                 self.data_memory[self.data_address] = 127
         elif sel == Opcode.INPUT.value:
             if len(self.input_buffer) == 0:
@@ -111,8 +116,6 @@ class DataPath():
                 "input token is out of bound: {}".format(symbol_code)
             self.data_memory[self.data_address] = symbol_code
             logging.debug('input: %s', repr(symbol))
-        else:
-            assert False, "internal error, incorect selector: {}".format(sel)
 
     def zero(self):
         """Флаг"""
