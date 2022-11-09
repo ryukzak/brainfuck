@@ -235,7 +235,7 @@ class ControlUnit():
         opcode = instr["opcode"]
         arg = instr.get("arg", "")
         term = instr["term"]
-        action = f"{opcode} {arg} ('{term.symbol}' @ {term.line}:{term.pos})"
+        action = "{} {} ('{}' @ {}:{})".format(opcode, arg, term.symbol, term.line, term.pos)
 
         return "{} {}".format(state, action)
 
