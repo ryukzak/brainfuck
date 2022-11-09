@@ -1,6 +1,6 @@
 # pylint: disable=missing-class-docstring     # что бы не быть капитаном очевидностью
 # pylint: disable=missing-function-docstring  # что бы не быть капитаном очевидностью
-
+# pylint: disable=line-too-long               # строки с ожидаемым выводом
 
 """Интеграционные тесты транслятора и машины
 """

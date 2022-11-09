@@ -169,6 +169,9 @@ class ControlUnit():
         """Счётчик тактов процессора. Вызывается при переходе на следующий такт."""
         self._tick += 1
 
+    def current_tick(self):
+        return self._tick
+
     def latch_program_counter(self, sel_next):
         if sel_next:
             self.program_counter += 1
@@ -261,7 +264,7 @@ def simulation(code, input_tokens, data_memory_size, limit):
     except StopIteration:
         pass
     logging.info('output_buffer: %s', repr(''.join(data_path.output_buffer)))
-    return ''.join(data_path.output_buffer), instr_counter, control_unit._tick
+    return ''.join(data_path.output_buffer), instr_counter, control_unit.current_tick()
 
 
 def main(args):
@@ -280,8 +283,7 @@ def main(args):
                                               data_memory_size=100, limit=1000)
 
     print(''.join(output))
-    print("instr_counter: ", instr_counter, "ticks:",  ticks)
-
+    print("instr_counter: ", instr_counter, "ticks:", ticks)
 
 
 if __name__ == '__main__':
