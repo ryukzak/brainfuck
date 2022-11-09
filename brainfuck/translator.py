@@ -54,9 +54,9 @@ def translate(text):
         elif term.symbol == ']':
             # формируем цикл с началом из jmp_stack
             begin_pc = jmp_stack.pop()
-            begin = {'opcode': Opcode.JZ, 'arg': pc + 1, 'term': term}
+            begin = {'opcode': Opcode.JZ, 'arg': pc + 1, 'term': terms[begin_pc]}
             end = {'opcode': Opcode.JMP,
-                   'arg': begin_pc, 'term': terms[begin_pc]}
+                   'arg': begin_pc, 'term': term}
             code[begin_pc] = begin
             code.append(end)
         else:
