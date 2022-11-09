@@ -162,7 +162,6 @@ class ControlUnit():
         self.program = program
         self.program_counter = 0
         self.data_path = data_path
-        self.halted = False
         self._tick = 0
 
     def tick(self):
@@ -242,7 +241,7 @@ def simulation(code, input_tokens, data_memory_size, limit):
 
     logging.debug('%s', control_unit)
     try:
-        while not control_unit.halted:
+        while True:
             limit -= 1
             assert limit > 0, "too long execution, increase limit!"
             control_unit.decode_and_execute_instruction()
