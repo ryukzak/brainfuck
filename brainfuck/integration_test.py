@@ -30,7 +30,8 @@ class TestTranslator(unittest.TestCase):
                 machine.main([target, input_stream])
 
             # Проверяем было напичатано то, что мы ожидали.
-            self.assertEqual(stdout.getvalue(), "Hello World!\n\n")
+            self.assertEqual(stdout.getvalue(),
+                             'source LoC: 357 code instr: 131\nHello World!\n\ninstr_counter:  987 ticks: 1532\n')
 
     def test_cat(self):
         with tempfile.TemporaryDirectory() as tmpdirname:
@@ -45,7 +46,7 @@ class TestTranslator(unittest.TestCase):
                     machine.main([target, input_stream])
 
             self.assertEqual(stdout.getvalue(),
-                             "Hello World from input!\n\n")
+                             'source LoC: 1 code instr: 6\nHello World from input!\n\ninstr_counter:  95 ticks: 168\n')
 
             self.assertEqual(logs.output,
                              ['WARNING:root:Input buffer is empty!',
@@ -62,7 +63,8 @@ class TestTranslator(unittest.TestCase):
                     translator.main([source, target])
                     machine.main([target, input_stream])
 
-            self.assertEqual(stdout.getvalue(), "foo\n\n")
+            self.assertEqual(stdout.getvalue(),
+                             'source LoC: 1 code instr: 6\nfoo\n\ninstr_counter:  15 ticks: 28\n')
 
             expect_log = [
                 "DEBUG:root:{TICK: 0, PC: 0, ADDR: 0, OUT: 0, ACC: 0} input  (',' @ 1:1)",

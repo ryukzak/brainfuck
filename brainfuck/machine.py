@@ -247,20 +247,21 @@ def simulation(code, input_tokens, data_memory_size, limit):
     """
     data_path = DataPath(data_memory_size, input_tokens)
     control_unit = ControlUnit(code, data_path)
+    instr_counter = 0
 
     logging.debug('%s', control_unit)
     try:
         while True:
-            limit -= 1
-            assert limit > 0, "too long execution, increase limit!"
+            assert limit > instr_counter, "too long execution, increase limit!"
             control_unit.decode_and_execute_instruction()
+            instr_counter += 1
             logging.debug('%s', control_unit)
     except EOFError:
         logging.warning('Input buffer is empty!')
     except StopIteration:
         pass
     logging.info('output_buffer: %s', repr(''.join(data_path.output_buffer)))
-    return ''.join(data_path.output_buffer)
+    return ''.join(data_path.output_buffer), instr_counter, control_unit._tick
 
 
 def main(args):
@@ -274,11 +275,13 @@ def main(args):
         for char in input_text:
             input_token.append(char)
 
-    output = simulation(code,
-                        input_tokens=input_token,
-                        data_memory_size=100, limit=1000)
+    output, instr_counter, ticks = simulation(code,
+                                              input_tokens=input_token,
+                                              data_memory_size=100, limit=1000)
 
     print(''.join(output))
+    print("instr_counter: ", instr_counter, "ticks:",  ticks)
+
 
 
 if __name__ == '__main__':
