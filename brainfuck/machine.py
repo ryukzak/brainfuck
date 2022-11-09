@@ -136,16 +136,17 @@ class ControlUnit():
        | MUX |---->| program |---+--->| program |
    +-->|     |     | counter |        | memory  |
    |   +-----+     +---------+        +---------+
-   |                                      |
-   |                                      | current instruction
+   |      ^                               |
+   |      | sel_next                           | current instruction
+   |      |                               |
    +---------------(select-arg)-----------+
-                                          |      +---------+
-                                          |      |  step   |
-                                          |  +---| counter |
-                                          |  |   +---------+
-                                          v  v        ^
-                                  +-------------+     |
-                                  | instruction |-----+
+          |                               |      +---------+
+          |                               |      |  step   |
+          |                               |  +---| counter |
+          |                               |  |   +---------+
+          |                               v  v        ^
+          |                       +-------------+     |
+          +-----------------------| instruction |-----+
                       +---------->| decoder     |
                       |           +-------------+
                       |                   |
@@ -168,6 +169,14 @@ class ControlUnit():
         """Счётчик тактов процессора. Вызывается при переходе на следующий такт."""
         self._tick += 1
 
+    def latch_program_counter(self, sel_next):
+        if sel_next:
+            self.program_counter += 1
+        else:
+            instr = self.program[self.program_counter]
+            assert 'arg' in instr, "internal error"
+            self.program_counter = instr["arg"]
+
     def decode_and_execute_instruction(self):
         instr = self.program[self.program_counter]
         opcode = instr["opcode"]
@@ -187,14 +196,14 @@ class ControlUnit():
             self.tick()
 
             if self.data_path.zero():
-                self.program_counter = addr
+                self.latch_program_counter(sel_next=False)
             else:
-                self.program_counter += 1
+                self.latch_program_counter(sel_next=True)
             self.tick()
         else:
             if opcode in {Opcode.RIGHT, Opcode.LEFT}:
                 self.data_path.latch_data_addr(opcode.value)
-                self.program_counter += 1
+                self.latch_program_counter(sel_next=True)
                 self.tick()
 
             elif opcode in {Opcode.INC, Opcode.DEC, Opcode.INPUT}:
@@ -202,7 +211,7 @@ class ControlUnit():
                 self.tick()
 
                 self.data_path.wr(opcode.value)
-                self.program_counter += 1
+                self.latch_program_counter(sel_next=True)
                 self.tick()
 
             elif opcode is Opcode.PRINT:
@@ -210,7 +219,7 @@ class ControlUnit():
                 self.tick()
 
                 self.data_path.output()
-                self.program_counter += 1
+                self.latch_program_counter(sel_next=True)
                 self.tick()
 
     def __repr__(self):
