@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# pylint: disable=missing-function-docstring  # что бы не быть капитаном очевидностью
+# pylint: disable=missing-function-docstring  # чтобы не быть Капитаном Очевидностью
 # pylint: disable=invalid-name                # сохраним традиционные наименования сигналов
 # pylint: disable=consider-using-f-string     # избыточный синтаксис
 
@@ -10,7 +10,7 @@ import sys
 
 from isa import Opcode, write_code, Term
 
-# словарь символов, непосредственно транслирумых в машинный код
+# словарь символов, непосредственно транслируемых в машинный код
 symbol2opcode = {
     "<": Opcode.LEFT,
     ">": Opcode.RIGHT,
@@ -30,7 +30,7 @@ def translate(text):
     for line_num, line in enumerate(text.split(), 1):
         for pos, char in enumerate(line, 1):
             if char in symbols:
-                # любые другие символы рассматриваются как комментарии, по этому выкидываем
+                # любые другие символы рассматриваются как комментарии, поэтому выкидываем
                 terms.append(Term(line_num, pos, char))
 
     # Проверяем корректность программы: скобки должны быть парными.
@@ -71,7 +71,7 @@ def translate(text):
 def main(args):
     """Функция запуска транслятора.
 
-    Реализована таким образом так как:
+    Реализована таким образом, чтобы:
 
     - ограничить область видимости внутренних переменных;
     - упростить автоматическое тестирование.
