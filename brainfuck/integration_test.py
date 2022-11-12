@@ -1,5 +1,5 @@
-# pylint: disable=missing-class-docstring     # что бы не быть капитаном очевидностью
-# pylint: disable=missing-function-docstring  # что бы не быть капитаном очевидностью
+# pylint: disable=missing-class-docstring     # чтобы не быть Капитаном Очевидностью
+# pylint: disable=missing-function-docstring  # чтобы не быть Капитаном Очевидностью
 # pylint: disable=line-too-long               # строки с ожидаемым выводом
 
 """Интеграционные тесты транслятора и машины
@@ -29,7 +29,7 @@ class TestTranslator(unittest.TestCase):
                 translator.main([source, target])
                 machine.main([target, input_stream])
 
-            # Проверяем было напичатано то, что мы ожидали.
+            # Проверяем, что было напечатано то, что мы ожидали.
             self.assertEqual(stdout.getvalue(),
                              'source LoC: 357 code instr: 131\nHello World!\n\ninstr_counter:  987 ticks: 1532\n')
 
