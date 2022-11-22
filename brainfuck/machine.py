@@ -109,7 +109,6 @@ class DataPath():
         elif sel == Opcode.INPUT.value:
             if len(self.input_buffer) == 0:
                 raise EOFError()
-            assert len(self.input_buffer) > 0, "input_buffer is empty!"
             symbol = self.input_buffer.pop(0)
             symbol_code = ord(symbol)
             assert -128 <= symbol_code <= 127, \
@@ -137,7 +136,7 @@ class ControlUnit():
    +-->|     |     | counter |        | memory  |
    |   +-----+     +---------+        +---------+
    |      ^                               |
-   |      | sel_next                           | current instruction
+   |      | sel_next                      | current instruction
    |      |                               |
    +---------------(select-arg)-----------+
           |                               |      +---------+
