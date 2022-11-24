@@ -40,8 +40,8 @@ def translate(text):
             deep += 1
         if term.symbol == "]":
             deep -= 1
-        assert deep >= 0, "Unbalanced parentness!"
-    assert deep == 0, "Unbalanced parentness!"
+        assert deep >= 0, "Unbalanced brackets!"
+    assert deep == 0, "Unbalanced brackets!"
 
     # Транслируем термы в машинный код.
     code = []
