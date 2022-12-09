@@ -251,7 +251,7 @@ comment ::= <any symbols except: "><+-.,[]">
 В качестве тестов использовано два алгоритма:
 
 1. [hello world](examples/hello.bf).
-2. [cat](examples/hello.bf) -- программа `cat`, повторяем ввод на выводе.
+2. [cat](examples/cat.bf) -- программа `cat`, повторяем ввод на выводе.
 
 Интеграционные тесты реализованы тут: [integration_test](./integration_test.py)
 
