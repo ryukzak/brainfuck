@@ -3,7 +3,7 @@
 # pylint: disable=invalid-name                # сохраним традиционные наименования сигналов
 # pylint: disable=consider-using-f-string     # избыточный синтаксис
 
-"""Модель процессора, позволяющая выполнить странслированные программы на языке Brainfick.
+"""Модель процессора, позволяющая выполнить странслированные программы на языке Brainfuck.
 """
 import logging
 import sys
@@ -66,7 +66,7 @@ class DataPath():
 
     def latch_data_addr(self, sel):
         assert sel in {Opcode.LEFT.value, Opcode.RIGHT.value}, \
-            "internal error, incorect selector: {}".format(sel)
+            "internal error, incorrect selector: {}".format(sel)
 
         if sel == Opcode.LEFT.value:
             self.data_address -= 1
@@ -85,7 +85,7 @@ class DataPath():
 
         Вывод:
 
-        - производится через ASCII символы по спецификации;
+        - производится через ASCII-символы по спецификации;
         - вывод осуществляется просто в буфер.
         """
         symbol = chr(self.acc)
@@ -96,7 +96,7 @@ class DataPath():
     def wr(self, sel):
         """wr (от WRite), сохранить в память."""
         assert sel in {Opcode.INC.value, Opcode.DEC.value, Opcode.INPUT.value}, \
-            "internal error, incorect selector: {}".format(sel)
+            "internal error, incorrect selector: {}".format(sel)
 
         if sel == Opcode.INC.value:
             self.data_memory[self.data_address] = self.acc + 1
@@ -123,7 +123,7 @@ class DataPath():
 
 class ControlUnit():
     """Блок управления процессора. Выполняет декодирование инструкций и
-    управляет состоянием процессора включая обработку данных (DataPath).
+    управляет состоянием процессора, включая обработку данных (DataPath).
 
     Считается, что любая инструкция может быть в одно слово. Следовательно,
     индекс памяти команд эквивалентен номеру инструкции.
