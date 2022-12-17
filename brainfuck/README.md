@@ -213,16 +213,17 @@ comment ::= <any symbols except: "><+-.,[]">
        | MUX |---->| program |---+--->| program |
    +-->|     |     | counter |        | memory  |
    |   +-----+     +---------+        +---------+
-   |                                      |
-   |                                      | current instruction
+   |      ^                               |
+   |      | sel_next                      | current instruction
+   |      |                               |
    +---------------(select-arg)-----------+
-                                          |      +---------+
-                                          |      |  step   |
-                                          |  +---| counter |
-                                          |  |   +---------+
-                                          v  v        ^
-                                  +-------------+     |
-                                  | instruction |-----+
+          |                               |      +---------+
+          |                               |      |  step   |
+          |                               |  +---| counter |
+          |                               |  |   +---------+
+          |                               v  v        ^
+          |                       +-------------+     |
+          +-----------------------| instruction |-----+
                       +---------->| decoder     |
                       |           +-------------+
                       |                   |
@@ -233,7 +234,6 @@ comment ::= <any symbols except: "><+-.,[]">
                                     | DataPath |
                      input -------->|          |----------> output
                                     +----------+
-
 ```
 
 Реализован в классе `ControlUnit`.
