@@ -246,7 +246,7 @@ comment ::= <any symbols except: "><+-.,[]">
 
 Сигнал:
 
-- `latch_program_couter` -- сигнал для обновления счётчика команд в ControlUnit.
+- `latch_program_counter` -- сигнал для обновления счётчика команд в ControlUnit.
 
 Особенности работы модели:
 
