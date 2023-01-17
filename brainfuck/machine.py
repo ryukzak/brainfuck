@@ -236,8 +236,11 @@ class ControlUnit():
         instr = self.program[self.program_counter]
         opcode = instr["opcode"]
         arg = instr.get("arg", "")
-        term = instr["term"]
-        action = "{} {} ('{}' @ {}:{})".format(opcode, arg, term.symbol, term.line, term.pos)
+
+        term = instr.get("term", None)
+        action = "xxx"
+        if term is not None:
+            action = "{} {} ('{}' @ {}:{})".format(opcode, arg, term.symbol, term.line, term.pos)
 
         return "{} {}".format(state, action)
 

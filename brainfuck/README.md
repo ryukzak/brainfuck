@@ -264,7 +264,10 @@ comment ::= <any symbols except: "><+-.,[]">
 1. [hello world](examples/hello.bf).
 2. [cat](examples/cat.bf) -- программа `cat`, повторяем ввод на выводе.
 
-Интеграционные тесты реализованы тут: [integration_test](./integration_test.py)
+Интеграционные тесты реализованы тут: [integration_test](./integration_test.py) в двух вариантах:
+
+- через golden tests, конфигурация которых лежит в папке [golden](./golden) (рекомендуемый способ).
+- через unittest (устаревший пример).
 
 CI:
 
