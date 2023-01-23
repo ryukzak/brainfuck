@@ -154,6 +154,9 @@ comment ::= <any symbols except: "><+-.,[]">
 ### DataPath
 
 ``` text
+                            latch
+                              |
+                              v
                      +--------------+  addr   +--------+
                +---->| data_address |---+---->|  data  |
                |     +--------------+   |     | memory |
