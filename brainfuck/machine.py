@@ -14,7 +14,9 @@ from isa import Opcode, read_code
 
 class DataPath():
     """Тракт данных (пассивный), включая: ввод/вывод, память и арифметику.
-
+                            latch
+                              |
+                              V
                      +--------------+  addr   +--------+
                +---->| data_address |---+---->|  data  |
                |     +--------------+   |     | memory |
