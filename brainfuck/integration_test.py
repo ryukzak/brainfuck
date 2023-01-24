@@ -29,14 +29,14 @@ import translator
 # Если вы меняете логику работы приложения -- то запускаете тесты с ключём:
 # `cd src/brainfuck && true && pytest . -v --update-goldens`
 #
-# Это обновит файлы конфигурации и вы можете закомитить изменения в репозиторий,
+# Это обновит файлы конфигурации и вы можете закоммитить изменения в репозиторий,
 # если они корректные.
 #
 # Формат файла описания теста -- YAML. Поля определяются самим тестом:
 #
 # - source -- исходный код на вход
 # - input -- данные на ввод процессора
-# - code -- машинный код на выходе из ранслятора
+# - code -- машинный код на выходе из транслятора
 # - output -- стандартный вывод программ
 # - log -- журнал программы
 @pytest.mark.golden_test("golden/*.yml")
@@ -57,7 +57,7 @@ def test_whole_by_golden(golden, caplog):
         with open(input_stream, "w", encoding="utf-8") as file:
             file.write(golden["input"])
 
-        # Запускаем транлятор и собираем весь стандартный вывод в переменную
+        # Запускаем транслятор и собираем весь стандартный вывод в переменную
         # stdout
         with contextlib.redirect_stdout(io.StringIO()) as stdout:
             translator.main([source, target])
@@ -68,7 +68,7 @@ def test_whole_by_golden(golden, caplog):
         with open(target, encoding="utf-8") as file:
             code = file.read()
 
-        # Проверяем что ожидания соответствуют реальности.
+        # Проверяем, что ожидания соответствуют реальности.
         assert code == golden.out["code"]
         assert stdout.getvalue() == golden.out["output"]
         assert caplog.text == golden.out["log"]
