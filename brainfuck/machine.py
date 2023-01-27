@@ -96,7 +96,22 @@ class DataPath():
         self.output_buffer.append(symbol)
 
     def wr(self, sel):
-        """wr (от WRite), сохранить в память."""
+        """wr (от WRite), сохранить в память.
+
+        В примере ниже имитируется переполнение ячейки при инкрименте. Данный
+        текст является doctest-ом, корректность которого проверяется при помощи
+        команды: `python3 -m doctest -v machine.py`
+
+        >>> dp = DataPath(10, [chr(127)])
+        >>> dp.wr(Opcode.INPUT.value)
+        >>> dp.latch_acc()
+        >>> dp.acc
+        127
+        >>> dp.wr(Opcode.INC.value)
+        >>> dp.latch_acc()
+        >>> dp.acc
+        -128
+        """
         assert sel in {Opcode.INC.value, Opcode.DEC.value, Opcode.INPUT.value}, \
             "internal error, incorrect selector: {}".format(sel)
 
