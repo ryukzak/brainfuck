@@ -267,10 +267,10 @@ comment ::= <any symbols except: "><+-.,[]">
 1. [hello world](examples/hello.bf).
 2. [cat](examples/cat.bf) -- программа `cat`, повторяем ввод на выводе.
 
-Интеграционные тесты реализованы тут: [integration_test](./integration_test.py) в двух вариантах:
+Интеграционные тесты реализованы тут [integration_test](./integration_test.py) в двух вариантах:
 
 - через golden tests, конфигурация которых лежит в папке [golden](./golden) (рекомендуемый способ).
-- через unittest (устаревший пример).
+- через unittest (приведён как **устаревший** пример).
 
 CI:
 
@@ -278,23 +278,26 @@ CI:
 lab3-example:
   stage: test
   image:
-    name: python-tools
+    name: ryukzak/python-tools
     entrypoint: [""]
   script:
     - cd src/brainfuck
-    - python3-coverage run -m pytest --verbose
-    - find . -type f -name "*.py" | xargs -t python3-coverage report
-    - find . -type f -name "*.py" | xargs -t pep8 --ignore=E501
-    - find . -type f -name "*.py" | xargs -t pylint
+    - poetry install
+    - coverage run -m pytest --verbose
+    - find . -type f -name "*.py" | xargs -t coverage report
+    - flake8 .
+    - black --check .
+    - isort --check .
 ```
 
 где:
 
-- `python3-coverage` -- формирование отчёта об уровне покрытия исходного кода.
+- `ryukzak/python-tools` -- docker образ, который содержит все необходимые для проверки утилиты. Подробнее: [Dockerfile](./Dockerfile)
+- `poetry` -- управления зависимостями для языка программирования Python.
+- `coverage` -- формирование отчёта об уровне покрытия исходного кода.
 - `pytest` -- утилита для запуска тестов.
-- `pep8` -- утилита для проверки форматирования кода. `E501` (длина строк) отключено, но не следует этим злоупотреблять.
-- `pylint` -- утилита для проверки качества кода. Некоторые правила отключены в отдельных модулях с целью упрощения кода.
-- Docker image `python-tools` включает в себя все перечисленные утилиты. Его конфигурация: [Dockerfile](./Dockerfile).
+- `flake8` -- утилита для проверки форматирования кода. `E501` (длина строк) отключено, но не следует этим злоупотреблять.
+- `black` и `isort` -- утилиты для автоматического форматирования исходного кода.
 
 Пример использования и журнал работы процессора на примере `cat`:
 
@@ -386,7 +389,7 @@ foo
 instr_counter:  15 ticks: 28
 ```
 
-| ФИО           | алг.  | LoC       | code байт | code инстр. | инстр. | такт. | вариант |
-|---------------|-------|-----------|-----------|-------------|--------|-------|---------|
+``` text
 | Преподавателя | hello | ...       | -         | ...         | ...    | ...   | ...     |
 | Преподавателя | cat   | 1         | -         | 6           | 15     | 28    | ...     |
+```

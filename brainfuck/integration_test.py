@@ -91,8 +91,9 @@ class TestWhole(unittest.TestCase):
                 machine.main([target, input_stream])
 
             # Проверяем, что было напечатано то, что мы ожидали.
-            self.assertEqual(stdout.getvalue(),
-                             'source LoC: 357 code instr: 131\nHello World!\n\ninstr_counter:  987 ticks: 1532\n')
+            self.assertEqual(
+                stdout.getvalue(), "source LoC: 357 code instr: 131\nHello World!\n\ninstr_counter:  987 ticks: 1532\n"
+            )
 
     def test_cat(self):
         with tempfile.TemporaryDirectory() as tmpdirname:
@@ -102,16 +103,19 @@ class TestWhole(unittest.TestCase):
 
             with contextlib.redirect_stdout(io.StringIO()) as stdout:
                 # Собираем журнал событий по уровню INFO в переменную logs.
-                with self.assertLogs('', level='INFO') as logs:
+                with self.assertLogs("", level="INFO") as logs:
                     translator.main([source, target])
                     machine.main([target, input_stream])
 
-            self.assertEqual(stdout.getvalue(),
-                             'source LoC: 1 code instr: 6\nHello World from input!\n\ninstr_counter:  95 ticks: 168\n')
+            self.assertEqual(
+                stdout.getvalue(),
+                "source LoC: 1 code instr: 6\nHello World from input!\n\ninstr_counter:  95 ticks: 168\n",
+            )
 
-            self.assertEqual(logs.output,
-                             ['WARNING:root:Input buffer is empty!',
-                              "INFO:root:output_buffer: 'Hello World from input!\\n'"])
+            self.assertEqual(
+                logs.output,
+                ["WARNING:root:Input buffer is empty!", "INFO:root:output_buffer: 'Hello World from input!\\n'"],
+            )
 
     def test_cat_trace(self):
         with tempfile.TemporaryDirectory() as tmpdirname:
@@ -120,12 +124,11 @@ class TestWhole(unittest.TestCase):
             input_stream = "examples/foo_input.txt"
 
             with contextlib.redirect_stdout(io.StringIO()) as stdout:
-                with self.assertLogs('', level='DEBUG') as logs:
+                with self.assertLogs("", level="DEBUG") as logs:
                     translator.main([source, target])
                     machine.main([target, input_stream])
 
-            self.assertEqual(stdout.getvalue(),
-                             'source LoC: 1 code instr: 6\nfoo\n\ninstr_counter:  15 ticks: 28\n')
+            self.assertEqual(stdout.getvalue(), "source LoC: 1 code instr: 6\nfoo\n\ninstr_counter:  15 ticks: 28\n")
 
             expect_log = [
                 "DEBUG:root:{TICK: 0, PC: 0, ADDR: 0, OUT: 0, ACC: 0} input  (',' @ 1:1)",
@@ -152,6 +155,7 @@ class TestWhole(unittest.TestCase):
                 "DEBUG:root:{TICK: 25, PC: 2, ADDR: 0, OUT: 10, ACC: 10} print  ('.' @ 1:3)",
                 "DEBUG:root:output: 'foo' << '\\n'",
                 "DEBUG:root:{TICK: 27, PC: 3, ADDR: 0, OUT: 10, ACC: 10} input  (',' @ 1:4)",
-                'WARNING:root:Input buffer is empty!',
-                "INFO:root:output_buffer: 'foo\\n'"]
+                "WARNING:root:Input buffer is empty!",
+                "INFO:root:output_buffer: 'foo\\n'",
+            ]
             self.assertEqual(logs.output, expect_log)

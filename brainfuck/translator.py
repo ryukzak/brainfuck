@@ -8,7 +8,7 @@
 
 import sys
 
-from isa import Opcode, write_code, Term
+from isa import Opcode, Term, write_code
 
 # словарь символов, непосредственно транслируемых в машинный код
 symbol2opcode = {
@@ -47,24 +47,23 @@ def translate(text):
     code = []
     jmp_stack = []
     for pc, term in enumerate(terms):
-        if term.symbol == '[':
+        if term.symbol == "[":
             # оставляем placeholder, который будет заменён в конце цикла
             code.append(None)
             jmp_stack.append(pc)
-        elif term.symbol == ']':
+        elif term.symbol == "]":
             # формируем цикл с началом из jmp_stack
             begin_pc = jmp_stack.pop()
-            begin = {'opcode': Opcode.JZ, 'arg': pc + 1, 'term': terms[begin_pc]}
-            end = {'opcode': Opcode.JMP,
-                   'arg': begin_pc, 'term': term}
+            begin = {"opcode": Opcode.JZ, "arg": pc + 1, "term": terms[begin_pc]}
+            end = {"opcode": Opcode.JMP, "arg": begin_pc, "term": term}
             code[begin_pc] = begin
             code.append(end)
         else:
             # Обработка тривиально отображаемых операций.
-            code.append({'opcode': symbol2opcode[term.symbol], 'term': term})
+            code.append({"opcode": symbol2opcode[term.symbol], "term": term})
 
     # Добавляем инструкцию остановки процессора в конец программы.
-    code.append({'opcode': Opcode.HALT})
+    code.append({"opcode": Opcode.HALT})
     return code
 
 
@@ -76,8 +75,7 @@ def main(args):
     - ограничить область видимости внутренних переменных;
     - упростить автоматическое тестирование.
     """
-    assert len(args) == 2, \
-        "Wrong arguments: translator.py <input_file> <target_file>"
+    assert len(args) == 2, "Wrong arguments: translator.py <input_file> <target_file>"
     source, target = args
 
     with open(source, "rt", encoding="utf-8") as f:
@@ -88,5 +86,5 @@ def main(args):
     write_code(target, code)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main(sys.argv[1:])

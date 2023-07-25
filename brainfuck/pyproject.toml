@@ -1,0 +1,40 @@
+[tool.poetry]
+name = "brainfuck"
+version = "0.1.0"
+description = ""
+authors = ["Aleksandr Penskoi <aleksandr.penskoi@gmail.com>"]
+license = "BSD"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.7.0"
+mypy = "^1.4.1"
+flake8 = "^6.0.0"
+flake8-pyproject = "^1.2.3"
+pytest-golden = "^0.2.2"
+pytest = "^7.4.0"
+isort = "^5.12.0"
+coverage = "^7.2.7"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+enable_assertion_pass_hook = true
+addopts = "--doctest-modules"
+log_format = "%(levelname)s %(module)s:%(funcName)s %(message)s"
+
+[tool.flake8]
+max-line-length = 120
+exclude = ["venv", ".git"]
+
+[tool.isort]
+profile = "black"
+
+[tool.black]
+line-length = 120

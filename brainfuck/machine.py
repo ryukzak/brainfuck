@@ -8,11 +8,10 @@
 import logging
 import sys
 
-
 from isa import Opcode, read_code
 
 
-class DataPath():
+class DataPath:
     """Тракт данных (пассивный), включая: ввод/вывод, память и арифметику.
                             latch
                               |
@@ -67,16 +66,14 @@ class DataPath():
         self.output_buffer = []
 
     def latch_data_addr(self, sel):
-        assert sel in {Opcode.LEFT.value, Opcode.RIGHT.value}, \
-            "internal error, incorrect selector: {}".format(sel)
+        assert sel in {Opcode.LEFT.value, Opcode.RIGHT.value}, "internal error, incorrect selector: {}".format(sel)
 
         if sel == Opcode.LEFT.value:
             self.data_address -= 1
         elif sel == Opcode.RIGHT.value:
             self.data_address += 1
 
-        assert 0 <= self.data_address < self.data_memory_size, \
-            "out of memory: {}".format(self.data_address)
+        assert 0 <= self.data_address < self.data_memory_size, "out of memory: {}".format(self.data_address)
 
     def latch_acc(self):
         """Вывести слово из памяти (oe от Output Enable) и защёлкнуть его в аккумулятор."""
@@ -91,8 +88,7 @@ class DataPath():
         - вывод осуществляется просто в буфер.
         """
         symbol = chr(self.acc)
-        logging.debug('output: %s << %s', repr(
-            ''.join(self.output_buffer)), repr(symbol))
+        logging.debug("output: %s << %s", repr("".join(self.output_buffer)), repr(symbol))
         self.output_buffer.append(symbol)
 
     def wr(self, sel):
@@ -112,8 +108,11 @@ class DataPath():
         >>> dp.acc
         -128
         """
-        assert sel in {Opcode.INC.value, Opcode.DEC.value, Opcode.INPUT.value}, \
-            "internal error, incorrect selector: {}".format(sel)
+        assert sel in {
+            Opcode.INC.value,
+            Opcode.DEC.value,
+            Opcode.INPUT.value,
+        }, "internal error, incorrect selector: {}".format(sel)
 
         if sel == Opcode.INC.value:
             self.data_memory[self.data_address] = self.acc + 1
@@ -128,51 +127,50 @@ class DataPath():
                 raise EOFError()
             symbol = self.input_buffer.pop(0)
             symbol_code = ord(symbol)
-            assert -128 <= symbol_code <= 127, \
-                "input token is out of bound: {}".format(symbol_code)
+            assert -128 <= symbol_code <= 127, "input token is out of bound: {}".format(symbol_code)
             self.data_memory[self.data_address] = symbol_code
-            logging.debug('input: %s', repr(symbol))
+            logging.debug("input: %s", repr(symbol))
 
     def zero(self):
         """Флаг"""
         return self.acc == 0
 
 
-class ControlUnit():
+class ControlUnit:
     """Блок управления процессора. Выполняет декодирование инструкций и
-    управляет состоянием процессора, включая обработку данных (DataPath).
+     управляет состоянием процессора, включая обработку данных (DataPath).
 
-    Считается, что любая инструкция может быть в одно слово. Следовательно,
-    индекс памяти команд эквивалентен номеру инструкции.
+     Считается, что любая инструкция может быть в одно слово. Следовательно,
+     индекс памяти команд эквивалентен номеру инструкции.
 
-   +------------------(+1)-------+
-   |                             |
-   |   +-----+                   |
-   +-->|     |     +---------+   |    +---------+
-       | MUX |---->| program |---+--->| program |
-   +-->|     |     | counter |        | memory  |
-   |   +-----+     +---------+        +---------+
-   |      ^                               |
-   |      | sel_next                      | current instruction
-   |      |                               |
-   +---------------(select-arg)-----------+
-          |                               |      +---------+
-          |                               |      |  step   |
-          |                               |  +---| counter |
-          |                               |  |   +---------+
-          |                               v  v        ^
-          |                       +-------------+     |
-          +-----------------------| instruction |-----+
-                      +---------->| decoder     |
-                      |           +-------------+
-                      |                   |
-                      |                   | signals
-                      |                   v
-                      |    zero     +----------+
-                      +-------------|          |
-                                    | DataPath |
-                     input -------->|          |----------> output
-                                    +----------+
+    +------------------(+1)-------+
+    |                             |
+    |   +-----+                   |
+    +-->|     |     +---------+   |    +---------+
+        | MUX |---->| program |---+--->| program |
+    +-->|     |     | counter |        | memory  |
+    |   +-----+     +---------+        +---------+
+    |      ^                               |
+    |      | sel_next                      | current instruction
+    |      |                               |
+    +---------------(select-arg)-----------+
+           |                               |      +---------+
+           |                               |      |  step   |
+           |                               |  +---| counter |
+           |                               |  |   +---------+
+           |                               v  v        ^
+           |                       +-------------+     |
+           +-----------------------| instruction |-----+
+                       +---------->| decoder     |
+                       |           +-------------+
+                       |                   |
+                       |                   | signals
+                       |                   v
+                       |    zero     +----------+
+                       +-------------|          |
+                                     | DataPath |
+                      input -------->|          |----------> output
+                                     +----------+
     """
 
     def __init__(self, program, data_path):
@@ -193,7 +191,7 @@ class ControlUnit():
             self.program_counter += 1
         else:
             instr = self.program[self.program_counter]
-            assert 'arg' in instr, "internal error"
+            assert "arg" in instr, "internal error"
             self.program_counter = instr["arg"]
 
     def decode_and_execute_instruction(self):
@@ -271,19 +269,19 @@ def simulation(code, input_tokens, data_memory_size, limit):
     control_unit = ControlUnit(code, data_path)
     instr_counter = 0
 
-    logging.debug('%s', control_unit)
+    logging.debug("%s", control_unit)
     try:
         while True:
             assert limit > instr_counter, "too long execution, increase limit!"
             control_unit.decode_and_execute_instruction()
             instr_counter += 1
-            logging.debug('%s', control_unit)
+            logging.debug("%s", control_unit)
     except EOFError:
-        logging.warning('Input buffer is empty!')
+        logging.warning("Input buffer is empty!")
     except StopIteration:
         pass
-    logging.info('output_buffer: %s', repr(''.join(data_path.output_buffer)))
-    return ''.join(data_path.output_buffer), instr_counter, control_unit.current_tick()
+    logging.info("output_buffer: %s", repr("".join(data_path.output_buffer)))
+    return "".join(data_path.output_buffer), instr_counter, control_unit.current_tick()
 
 
 def main(args):
@@ -297,14 +295,12 @@ def main(args):
         for char in input_text:
             input_token.append(char)
 
-    output, instr_counter, ticks = simulation(code,
-                                              input_tokens=input_token,
-                                              data_memory_size=100, limit=1000)
+    output, instr_counter, ticks = simulation(code, input_tokens=input_token, data_memory_size=100, limit=1000)
 
-    print(''.join(output))
+    print("".join(output))
     print("instr_counter: ", instr_counter, "ticks:", ticks)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     logging.getLogger().setLevel(logging.DEBUG)
     main(sys.argv[1:])
