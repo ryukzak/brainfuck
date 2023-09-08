@@ -5,7 +5,7 @@ ENV PYTHONUNBUFFERED=1 \
   POETRY_VERSION=1.5.1
 
 RUN mkdir /code
-COPY poetry.lock pyproject.toml /code
+COPY src/brainfuck/poetry.lock src/brainfuck/pyproject.toml /code
 WORKDIR /code
 
 RUN apk update && apk add python3-dev gcc libc-dev libffi-dev
