@@ -15,6 +15,5 @@ RUN pip install --upgrade --progress-bar off pip && pip install --progress-bar o
 RUN poetry config virtualenvs.create false \
   && poetry install --no-interaction --no-ansi
 
-# docker build --tag ryukzak/python-tools .
-# docker push ryukzak/python-tools
+# docker buildx build --push --platform linux/arm64,linux/amd64 --tag ryukzak/python-tools .
 # docker run -it ryukzak/python-tools /bin/sh
