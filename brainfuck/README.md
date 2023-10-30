@@ -285,7 +285,7 @@ lab3-example:
     - poetry install
     - coverage run -m pytest --verbose
     - find . -type f -name "*.py" | xargs -t coverage report
-    - ruff --check .
+    - ruff format --check .
     - ruff check .
 ```
 
