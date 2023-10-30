@@ -1,8 +1,10 @@
-# pylint: disable=missing-class-docstring     # чтобы не быть Капитаном Очевидностью
-# pylint: disable=missing-function-docstring  # чтобы не быть Капитаном Очевидностью
-# pylint: disable=line-too-long               # строки с ожидаемым выводом
+"""Интеграционные тесты транслятора и машины.
 
-"""Интеграционные тесты транслятора и машины
+В данном модуле использованы два подхода для тестирования:
+
+- традиционные тесты (`TestWhole`) -- тяжеловесные и не удобные (не требуются для выполнения задачи)
+- golden tests (`test_whole_by_golden`) -- легковесные и удобные (рекомендуется для выполнения задачи)
+- дополнительно рекомендуется делать unit-тесты для отдельных функций, где это целесообразно
 """
 
 import contextlib
@@ -12,9 +14,8 @@ import os
 import tempfile
 import unittest
 
-import pytest
-
 import machine
+import pytest
 import translator
 
 
@@ -91,8 +92,9 @@ class TestWhole(unittest.TestCase):
                 machine.main([target, input_stream])
 
             # Проверяем, что было напечатано то, что мы ожидали.
-            self.assertEqual(
-                stdout.getvalue(), "source LoC: 357 code instr: 131\nHello World!\n\ninstr_counter:  987 ticks: 1532\n"
+            assert (
+                stdout.getvalue()
+                == "source LoC: 357 code instr: 131\nHello World!\n\ninstr_counter:  987 ticks: 1532\n"
             )
 
     def test_cat(self):
@@ -107,15 +109,15 @@ class TestWhole(unittest.TestCase):
                     translator.main([source, target])
                     machine.main([target, input_stream])
 
-            self.assertEqual(
-                stdout.getvalue(),
-                "source LoC: 1 code instr: 6\nHello World from input!\n\ninstr_counter:  95 ticks: 168\n",
+            assert (
+                stdout.getvalue()
+                == "source LoC: 1 code instr: 6\nHello World from input!\n\ninstr_counter:  95 ticks: 168\n"
             )
 
-            self.assertEqual(
-                logs.output,
-                ["WARNING:root:Input buffer is empty!", "INFO:root:output_buffer: 'Hello World from input!\\n'"],
-            )
+            assert logs.output == [
+                "WARNING:root:Input buffer is empty!",
+                "INFO:root:output_buffer: 'Hello World from input!\\n'",
+            ]
 
     def test_cat_trace(self):
         with tempfile.TemporaryDirectory() as tmpdirname:
@@ -128,7 +130,7 @@ class TestWhole(unittest.TestCase):
                     translator.main([source, target])
                     machine.main([target, input_stream])
 
-            self.assertEqual(stdout.getvalue(), "source LoC: 1 code instr: 6\nfoo\n\ninstr_counter:  15 ticks: 28\n")
+            assert stdout.getvalue() == "source LoC: 1 code instr: 6\nfoo\n\ninstr_counter:  15 ticks: 28\n"
 
             expect_log = [
                 "DEBUG:root:{TICK: 0, PC: 0, ADDR: 0, OUT: 0, ACC: 0} input  (',' @ 1:1)",
@@ -158,4 +160,4 @@ class TestWhole(unittest.TestCase):
                 "WARNING:root:Input buffer is empty!",
                 "INFO:root:output_buffer: 'foo\\n'",
             ]
-            self.assertEqual(logs.output, expect_log)
+            assert logs.output == expect_log

@@ -1,8 +1,4 @@
 #!/usr/bin/python3
-# pylint: disable=missing-function-docstring  # чтобы не быть Капитаном Очевидностью
-# pylint: disable=invalid-name                # сохраним традиционные наименования сигналов
-# pylint: disable=consider-using-f-string     # избыточный синтаксис
-
 """Транслятор brainfuck в машинный код
 """
 
@@ -24,7 +20,7 @@ symbol2opcode = {
 symbols = {"<", ">", "+", "-", ",", ".", "[", "]"}
 
 
-def translate(text):
+def text2terms(text):
     # Транслируем текст в последовательность значимых термов.
     terms = []
     for line_num, line in enumerate(text.split(), 1):
@@ -42,6 +38,12 @@ def translate(text):
             deep -= 1
         assert deep >= 0, "Unbalanced brackets!"
     assert deep == 0, "Unbalanced brackets!"
+
+    return terms
+
+
+def translate(text):
+    terms = text2terms(text)
 
     # Транслируем термы в машинный код.
     code = []
@@ -78,7 +80,7 @@ def main(args):
     assert len(args) == 2, "Wrong arguments: translator.py <input_file> <target_file>"
     source, target = args
 
-    with open(source, "rt", encoding="utf-8") as f:
+    with open(source, encoding="utf-8") as f:
         source = f.read()
 
     code = translate(source)

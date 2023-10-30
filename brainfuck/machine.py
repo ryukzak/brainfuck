@@ -1,8 +1,4 @@
 #!/usr/bin/python3
-# pylint: disable=missing-function-docstring  # чтобы не быть Капитаном Очевидностью
-# pylint: disable=invalid-name                # сохраним традиционные наименования сигналов
-# pylint: disable=consider-using-f-string     # избыточный синтаксис
-
 """Модель процессора, позволяющая выполнить странслированные программы на языке Brainfuck.
 """
 import logging
@@ -95,8 +91,8 @@ class DataPath:
         """wr (от WRite), сохранить в память.
 
         В примере ниже имитируется переполнение ячейки при инкрименте. Данный
-        текст является doctest-ом, корректность которого проверяется при помощи
-        команды: `python3 -m doctest -v machine.py`
+        текст является doctest-ом, корректность которого проверяется во время
+        загрузки модуля или командой: `python3 -m doctest -v machine.py`
 
         >>> dp = DataPath(10, [chr(127)])
         >>> dp.wr(Opcode.INPUT.value)
@@ -107,6 +103,7 @@ class DataPath:
         >>> dp.latch_acc()
         >>> dp.acc
         -128
+
         """
         assert sel in {
             Opcode.INC.value,
@@ -194,19 +191,16 @@ class ControlUnit:
             assert "arg" in instr, "internal error"
             self.program_counter = instr["arg"]
 
-    def decode_and_execute_instruction(self):
-        instr = self.program[self.program_counter]
-        opcode = instr["opcode"]
-
-        if opcode is Opcode.HALT:
-            raise StopIteration()
-
+    def decode_and_execute_control_flow_instruction(self, instr, opcode):
+        """Декодировать и выполнить инструкцию управления потоком исполнения. В
+        случае успеха -- вернуть True."""
         if opcode is Opcode.JMP:
             addr = instr["arg"]
             self.program_counter = addr
             self.tick()
+            return True
 
-        elif opcode is Opcode.JZ:
+        if opcode is Opcode.JZ:
             addr = instr["arg"]
 
             self.data_path.latch_acc()
@@ -217,27 +211,40 @@ class ControlUnit:
             else:
                 self.latch_program_counter(sel_next=True)
             self.tick()
-        else:
-            if opcode in {Opcode.RIGHT, Opcode.LEFT}:
-                self.data_path.latch_data_addr(opcode.value)
-                self.latch_program_counter(sel_next=True)
-                self.tick()
+            return True
 
-            elif opcode in {Opcode.INC, Opcode.DEC, Opcode.INPUT}:
-                self.data_path.latch_acc()
-                self.tick()
+        return False
 
-                self.data_path.wr(opcode.value)
-                self.latch_program_counter(sel_next=True)
-                self.tick()
+    def decode_and_execute_instruction(self):
+        instr = self.program[self.program_counter]
+        opcode = instr["opcode"]
 
-            elif opcode is Opcode.PRINT:
-                self.data_path.latch_acc()
-                self.tick()
+        if opcode is Opcode.HALT:
+            raise StopIteration()
 
-                self.data_path.output()
-                self.latch_program_counter(sel_next=True)
-                self.tick()
+        if self.decode_and_execute_control_flow_instruction(instr, opcode):
+            return
+
+        if opcode in {Opcode.RIGHT, Opcode.LEFT}:
+            self.data_path.latch_data_addr(opcode.value)
+            self.latch_program_counter(sel_next=True)
+            self.tick()
+
+        elif opcode in {Opcode.INC, Opcode.DEC, Opcode.INPUT}:
+            self.data_path.latch_acc()
+            self.tick()
+
+            self.data_path.wr(opcode.value)
+            self.latch_program_counter(sel_next=True)
+            self.tick()
+
+        elif opcode is Opcode.PRINT:
+            self.data_path.latch_acc()
+            self.tick()
+
+            self.data_path.output()
+            self.latch_program_counter(sel_next=True)
+            self.tick()
 
     def __repr__(self):
         state = "{{TICK: {}, PC: {}, ADDR: {}, OUT: {}, ACC: {}}}".format(
