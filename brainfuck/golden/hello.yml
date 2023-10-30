@@ -2043,13 +2043,13 @@ log: |
   DEBUG machine:simulation {TICK: 1428, PC: 73, ADDR: 0, OUT: 0, ACC: 0} right  ('>' @ 272:1)
   DEBUG machine:simulation {TICK: 1429, PC: 74, ADDR: 1, OUT: 0, ACC: 0} right  ('>' @ 272:2)
   DEBUG machine:simulation {TICK: 1430, PC: 75, ADDR: 2, OUT: 72, ACC: 0} print  ('.' @ 272:3)
-  DEBUG machine:output output: '' << 'H'
+  DEBUG machine:signal_output output: '' << 'H'
   DEBUG machine:simulation {TICK: 1432, PC: 76, ADDR: 2, OUT: 72, ACC: 72} right  ('>' @ 281:1)
   DEBUG machine:simulation {TICK: 1433, PC: 77, ADDR: 3, OUT: 104, ACC: 72} decrement  ('-' @ 281:2)
   DEBUG machine:simulation {TICK: 1435, PC: 78, ADDR: 3, OUT: 103, ACC: 104} decrement  ('-' @ 281:3)
   DEBUG machine:simulation {TICK: 1437, PC: 79, ADDR: 3, OUT: 102, ACC: 103} decrement  ('-' @ 281:4)
   DEBUG machine:simulation {TICK: 1439, PC: 80, ADDR: 3, OUT: 101, ACC: 102} print  ('.' @ 281:5)
-  DEBUG machine:output output: 'H' << 'e'
+  DEBUG machine:signal_output output: 'H' << 'e'
   DEBUG machine:simulation {TICK: 1441, PC: 81, ADDR: 3, OUT: 101, ACC: 101} increment  ('+' @ 293:1)
   DEBUG machine:simulation {TICK: 1443, PC: 82, ADDR: 3, OUT: 102, ACC: 101} increment  ('+' @ 293:2)
   DEBUG machine:simulation {TICK: 1445, PC: 83, ADDR: 3, OUT: 103, ACC: 102} increment  ('+' @ 293:3)
@@ -2058,30 +2058,30 @@ log: |
   DEBUG machine:simulation {TICK: 1451, PC: 86, ADDR: 3, OUT: 106, ACC: 105} increment  ('+' @ 293:6)
   DEBUG machine:simulation {TICK: 1453, PC: 87, ADDR: 3, OUT: 107, ACC: 106} increment  ('+' @ 293:7)
   DEBUG machine:simulation {TICK: 1455, PC: 88, ADDR: 3, OUT: 108, ACC: 107} print  ('.' @ 293:8)
-  DEBUG machine:output output: 'He' << 'l'
+  DEBUG machine:signal_output output: 'He' << 'l'
   DEBUG machine:simulation {TICK: 1457, PC: 89, ADDR: 3, OUT: 108, ACC: 108} print  ('.' @ 293:9)
-  DEBUG machine:output output: 'Hel' << 'l'
+  DEBUG machine:signal_output output: 'Hel' << 'l'
   DEBUG machine:simulation {TICK: 1459, PC: 90, ADDR: 3, OUT: 108, ACC: 108} increment  ('+' @ 293:10)
   DEBUG machine:simulation {TICK: 1461, PC: 91, ADDR: 3, OUT: 109, ACC: 108} increment  ('+' @ 293:11)
   DEBUG machine:simulation {TICK: 1463, PC: 92, ADDR: 3, OUT: 110, ACC: 109} increment  ('+' @ 293:12)
   DEBUG machine:simulation {TICK: 1465, PC: 93, ADDR: 3, OUT: 111, ACC: 110} print  ('.' @ 293:13)
-  DEBUG machine:output output: 'Hell' << 'o'
+  DEBUG machine:signal_output output: 'Hell' << 'o'
   DEBUG machine:simulation {TICK: 1467, PC: 94, ADDR: 3, OUT: 111, ACC: 111} right  ('>' @ 300:1)
   DEBUG machine:simulation {TICK: 1468, PC: 95, ADDR: 4, OUT: 88, ACC: 111} right  ('>' @ 300:2)
   DEBUG machine:simulation {TICK: 1469, PC: 96, ADDR: 5, OUT: 32, ACC: 111} print  ('.' @ 300:3)
-  DEBUG machine:output output: 'Hello' << ' '
+  DEBUG machine:signal_output output: 'Hello' << ' '
   DEBUG machine:simulation {TICK: 1471, PC: 97, ADDR: 5, OUT: 32, ACC: 32} left  ('<' @ 308:1)
   DEBUG machine:simulation {TICK: 1472, PC: 98, ADDR: 4, OUT: 88, ACC: 32} decrement  ('-' @ 308:2)
   DEBUG machine:simulation {TICK: 1474, PC: 99, ADDR: 4, OUT: 87, ACC: 88} print  ('.' @ 308:3)
-  DEBUG machine:output output: 'Hello ' << 'W'
+  DEBUG machine:signal_output output: 'Hello ' << 'W'
   DEBUG machine:simulation {TICK: 1476, PC: 100, ADDR: 4, OUT: 87, ACC: 87} left  ('<' @ 320:1)
   DEBUG machine:simulation {TICK: 1477, PC: 101, ADDR: 3, OUT: 111, ACC: 87} print  ('.' @ 320:2)
-  DEBUG machine:output output: 'Hello W' << 'o'
+  DEBUG machine:signal_output output: 'Hello W' << 'o'
   DEBUG machine:simulation {TICK: 1479, PC: 102, ADDR: 3, OUT: 111, ACC: 111} increment  ('+' @ 332:1)
   DEBUG machine:simulation {TICK: 1481, PC: 103, ADDR: 3, OUT: 112, ACC: 111} increment  ('+' @ 332:2)
   DEBUG machine:simulation {TICK: 1483, PC: 104, ADDR: 3, OUT: 113, ACC: 112} increment  ('+' @ 332:3)
   DEBUG machine:simulation {TICK: 1485, PC: 105, ADDR: 3, OUT: 114, ACC: 113} print  ('.' @ 332:4)
-  DEBUG machine:output output: 'Hello Wo' << 'r'
+  DEBUG machine:signal_output output: 'Hello Wo' << 'r'
   DEBUG machine:simulation {TICK: 1487, PC: 106, ADDR: 3, OUT: 114, ACC: 114} decrement  ('-' @ 332:5)
   DEBUG machine:simulation {TICK: 1489, PC: 107, ADDR: 3, OUT: 113, ACC: 114} decrement  ('-' @ 332:6)
   DEBUG machine:simulation {TICK: 1491, PC: 108, ADDR: 3, OUT: 112, ACC: 113} decrement  ('-' @ 332:7)
@@ -2089,7 +2089,7 @@ log: |
   DEBUG machine:simulation {TICK: 1495, PC: 110, ADDR: 3, OUT: 110, ACC: 111} decrement  ('-' @ 332:9)
   DEBUG machine:simulation {TICK: 1497, PC: 111, ADDR: 3, OUT: 109, ACC: 110} decrement  ('-' @ 332:10)
   DEBUG machine:simulation {TICK: 1499, PC: 112, ADDR: 3, OUT: 108, ACC: 109} print  ('.' @ 332:11)
-  DEBUG machine:output output: 'Hello Wor' << 'l'
+  DEBUG machine:signal_output output: 'Hello Wor' << 'l'
   DEBUG machine:simulation {TICK: 1501, PC: 113, ADDR: 3, OUT: 108, ACC: 108} decrement  ('-' @ 332:12)
   DEBUG machine:simulation {TICK: 1503, PC: 114, ADDR: 3, OUT: 107, ACC: 108} decrement  ('-' @ 332:13)
   DEBUG machine:simulation {TICK: 1505, PC: 115, ADDR: 3, OUT: 106, ACC: 107} decrement  ('-' @ 332:14)
@@ -2099,16 +2099,16 @@ log: |
   DEBUG machine:simulation {TICK: 1513, PC: 119, ADDR: 3, OUT: 102, ACC: 103} decrement  ('-' @ 332:18)
   DEBUG machine:simulation {TICK: 1515, PC: 120, ADDR: 3, OUT: 101, ACC: 102} decrement  ('-' @ 332:19)
   DEBUG machine:simulation {TICK: 1517, PC: 121, ADDR: 3, OUT: 100, ACC: 101} print  ('.' @ 332:20)
-  DEBUG machine:output output: 'Hello Worl' << 'd'
+  DEBUG machine:signal_output output: 'Hello Worl' << 'd'
   DEBUG machine:simulation {TICK: 1519, PC: 122, ADDR: 3, OUT: 100, ACC: 100} right  ('>' @ 339:1)
   DEBUG machine:simulation {TICK: 1520, PC: 123, ADDR: 4, OUT: 87, ACC: 100} right  ('>' @ 339:2)
   DEBUG machine:simulation {TICK: 1521, PC: 124, ADDR: 5, OUT: 32, ACC: 100} increment  ('+' @ 339:3)
   DEBUG machine:simulation {TICK: 1523, PC: 125, ADDR: 5, OUT: 33, ACC: 32} print  ('.' @ 339:4)
-  DEBUG machine:output output: 'Hello World' << '!'
+  DEBUG machine:signal_output output: 'Hello World' << '!'
   DEBUG machine:simulation {TICK: 1525, PC: 126, ADDR: 5, OUT: 33, ACC: 33} right  ('>' @ 350:1)
   DEBUG machine:simulation {TICK: 1526, PC: 127, ADDR: 6, OUT: 8, ACC: 33} increment  ('+' @ 350:2)
   DEBUG machine:simulation {TICK: 1528, PC: 128, ADDR: 6, OUT: 9, ACC: 8} increment  ('+' @ 350:3)
   DEBUG machine:simulation {TICK: 1530, PC: 129, ADDR: 6, OUT: 10, ACC: 9} print  ('.' @ 350:4)
-  DEBUG machine:output output: 'Hello World!' << '\n'
+  DEBUG machine:signal_output output: 'Hello World!' << '\n'
   DEBUG machine:simulation {TICK: 1532, PC: 130, ADDR: 6, OUT: 10, ACC: 10} xxx
   INFO machine:simulation output_buffer: 'Hello World!\n'

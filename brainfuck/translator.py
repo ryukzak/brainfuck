@@ -1,35 +1,43 @@
 #!/usr/bin/python3
-"""Транслятор brainfuck в машинный код
+"""Транслятор brainfuck в машинный код.
 """
 
 import sys
 
 from isa import Opcode, Term, write_code
 
-# словарь символов, непосредственно транслируемых в машинный код
-symbol2opcode = {
-    "<": Opcode.LEFT,
-    ">": Opcode.RIGHT,
-    "+": Opcode.INC,
-    "-": Opcode.DEC,
-    ",": Opcode.INPUT,
-    ".": Opcode.PRINT,
-}
 
-# полное множество символов языка brainfuck
-symbols = {"<", ">", "+", "-", ",", ".", "[", "]"}
+def symbols():
+    """Полное множество символов языка brainfuck."""
+    return {"<", ">", "+", "-", ",", ".", "[", "]"}
+
+
+def symbol2opcode(symbol):
+    """Отображение операторов исходного кода в коды операций."""
+    return {
+        "<": Opcode.LEFT,
+        ">": Opcode.RIGHT,
+        "+": Opcode.INC,
+        "-": Opcode.DEC,
+        ",": Opcode.INPUT,
+        ".": Opcode.PRINT,
+    }.get(symbol)
 
 
 def text2terms(text):
-    # Транслируем текст в последовательность значимых термов.
+    """Трансляция текста в последовательность операторов языка (токенов).
+
+    Включает в себя:
+
+    - отсеивание всех незначимых символов (считаются комментариями);
+    - проверка формальной корректности программы (парность оператора цикла).
+    """
     terms = []
     for line_num, line in enumerate(text.split(), 1):
         for pos, char in enumerate(line, 1):
-            if char in symbols:
-                # любые другие символы рассматриваются как комментарии, поэтому выкидываем
+            if char in symbols():
                 terms.append(Term(line_num, pos, char))
 
-    # Проверяем корректность программы: скобки должны быть парными.
     deep = 0
     for term in terms:
         if term.symbol == "[":
@@ -43,6 +51,15 @@ def text2terms(text):
 
 
 def translate(text):
+    """Трансляция текста программы в машинный код.
+
+    Выполняется в два этапа:
+
+    1. Трансляция текста в последовательность операторов языка (токенов).
+    2. Генерация машинного кода.
+        - Прямое отображение части операторов в машинный код.
+        - Отображение операторов цикла в инструкции перехода с учётом вложенности и адресации инструкций. Подробнее см. в документации к `isa.Opcode`.
+    """
     terms = text2terms(text)
 
     # Транслируем термы в машинный код.
@@ -62,31 +79,25 @@ def translate(text):
             code.append(end)
         else:
             # Обработка тривиально отображаемых операций.
-            code.append({"opcode": symbol2opcode[term.symbol], "term": term})
+            code.append({"opcode": symbol2opcode(term.symbol), "term": term})
 
     # Добавляем инструкцию остановки процессора в конец программы.
     code.append({"opcode": Opcode.HALT})
     return code
 
 
-def main(args):
-    """Функция запуска транслятора.
-
-    Реализована таким образом, чтобы:
-
-    - ограничить область видимости внутренних переменных;
-    - упростить автоматическое тестирование.
-    """
-    assert len(args) == 2, "Wrong arguments: translator.py <input_file> <target_file>"
-    source, target = args
-
+def main(source, target):
+    """Функция запуска транслятора. Параметры -- исходный и целевой файлы."""
     with open(source, encoding="utf-8") as f:
         source = f.read()
 
     code = translate(source)
-    print("source LoC:", len(source.split()), "code instr:", len(code))
+
     write_code(target, code)
+    print("source LoC:", len(source.split()), "code instr:", len(code))
 
 
 if __name__ == "__main__":
-    main(sys.argv[1:])
+    assert len(sys.argv) == 3, "Wrong arguments: translator.py <input_file> <target_file>"
+    _, source, target = sys.argv
+    main(source, target)

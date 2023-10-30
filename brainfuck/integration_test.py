@@ -2,9 +2,14 @@
 
 В данном модуле использованы два подхода для тестирования:
 
-- традиционные тесты (`TestWhole`) -- тяжеловесные и не удобные (не требуются для выполнения задачи)
-- golden tests (`test_whole_by_golden`) -- легковесные и удобные (рекомендуется для выполнения задачи)
-- дополнительно рекомендуется делать unit-тесты для отдельных функций, где это целесообразно
+- golden tests (`test_whole_by_golden`) -- легковесные и удобные (рекомендуется
+  для выполнения задачи)
+
+- традиционные тесты (`TestWhole`) -- тяжеловесные и не удобные (не требуются
+  для выполнения задачи)
+
+- дополнительно рекомендуется делать unit-тесты для отдельных функций, где это
+целесообразно
 """
 
 import contextlib
@@ -19,29 +24,37 @@ import pytest
 import translator
 
 
-# Тут используется подход golden tests. У него не самая удачная реализация для
-# python: https://pypi.org/project/pytest-golden/ , но знать об этом подходе
-# крайне полезно.
-#
-# Принцип работы следующий: во внешних файлах специфицируются входные и выходные
-# данные для теста. При запуске тестов происходит сравнение и если выход
-# изменился -- выводится ошибка.
-#
-# Если вы меняете логику работы приложения -- то запускаете тесты с ключом:
-# `cd src/brainfuck && true && pytest . -v --update-goldens`
-#
-# Это обновит файлы конфигурации и вы можете закоммитить изменения в репозиторий,
-# если они корректные.
-#
-# Формат файла описания теста -- YAML. Поля определяются самим тестом:
-#
-# - source -- исходный код на вход
-# - input -- данные на ввод процессора
-# - code -- машинный код на выходе из транслятора
-# - output -- стандартный вывод программ
-# - log -- журнал программы
 @pytest.mark.golden_test("golden/*.yml")
 def test_whole_by_golden(golden, caplog):
+    """Используется подход golden tests. У него не самая удачная реализация для
+    python: https://pypi.org/project/pytest-golden/ , но знать об этом подходе
+    крайне полезно.
+
+    Принцип работы следующий: во внешних файлах специфицируются входные и
+    выходные данные для теста. При запуске тестов происходит сравнение и если
+    выход изменился -- выводится ошибка.
+
+    Если вы меняете логику работы приложения -- то запускаете тесты с ключом:
+    `cd src/brainfuck && pytest . -v --update-goldens`
+
+    Это обновит файлы конфигурации и вы можете закоммитить изменения в
+    репозиторий, если они корректные.
+
+    Формат файла описания теста -- YAML. Поля определяются доступом из теста к
+    аргумету `golden` (`golden[key]` -- входные данные, `golden.out("key")` --
+    выходные данные).
+
+    Вход:
+
+    - `source` -- исходный код
+    - `input` -- данные на ввод процессора для симуляции
+
+    Выход:
+
+    - `code` -- машинный код сгенерированный транлятором
+    - `output` -- стандартный вывод транлятора и симулятора
+    - `log` -- журнал программы
+    """
     # Установим уровень отладочного вывода на DEBUG
     caplog.set_level(logging.DEBUG)
 
@@ -61,9 +74,9 @@ def test_whole_by_golden(golden, caplog):
         # Запускаем транслятор и собираем весь стандартный вывод в переменную
         # stdout
         with contextlib.redirect_stdout(io.StringIO()) as stdout:
-            translator.main([source, target])
+            translator.main(source, target)
             print("============================================================")
-            machine.main([target, input_stream])
+            machine.main(target, input_stream)
 
         # Выходные данные также считываем в переменные.
         with open(target, encoding="utf-8") as file:
@@ -76,8 +89,10 @@ def test_whole_by_golden(golden, caplog):
 
 
 class TestWhole(unittest.TestCase):
-    # Данные тесты оставлены для примера, настоятельно рекомендуется
-    # использование golden
+    """Данные тесты оставлены для общего развития. Для выполнения лабораторной работы они не требутся.
+
+    В задании лабораторной работы необходимо использовать golden tests.
+    """
 
     def test_hello(self):
         # Создаём временную папку для скомпилированного файла. Удаляется автоматически.
@@ -88,8 +103,8 @@ class TestWhole(unittest.TestCase):
 
             # Собираем весь стандартный вывод в переменную stdout.
             with contextlib.redirect_stdout(io.StringIO()) as stdout:
-                translator.main([source, target])
-                machine.main([target, input_stream])
+                translator.main(source, target)
+                machine.main(target, input_stream)
 
             # Проверяем, что было напечатано то, что мы ожидали.
             assert (
@@ -106,8 +121,8 @@ class TestWhole(unittest.TestCase):
             with contextlib.redirect_stdout(io.StringIO()) as stdout:
                 # Собираем журнал событий по уровню INFO в переменную logs.
                 with self.assertLogs("", level="INFO") as logs:
-                    translator.main([source, target])
-                    machine.main([target, input_stream])
+                    translator.main(source, target)
+                    machine.main(target, input_stream)
 
             assert (
                 stdout.getvalue()
@@ -127,8 +142,8 @@ class TestWhole(unittest.TestCase):
 
             with contextlib.redirect_stdout(io.StringIO()) as stdout:
                 with self.assertLogs("", level="DEBUG") as logs:
-                    translator.main([source, target])
-                    machine.main([target, input_stream])
+                    translator.main(source, target)
+                    machine.main(target, input_stream)
 
             assert stdout.getvalue() == "source LoC: 1 code instr: 6\nfoo\n\ninstr_counter:  15 ticks: 28\n"
 
