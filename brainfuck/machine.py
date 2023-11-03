@@ -214,13 +214,14 @@ class ControlUnit:
            |                               v  v        ^
            |                       +-------------+     |
            +-----------------------| instruction |-----+
-                       +---------->| decoder     |
-                       |           +-------------+
-                       |                   |
-                       |                   | signals
-                       |                   v
-                       |    zero     +----------+
-                       +-------------|          |
+                                   |   decoder   |
+                                   |             |<-------+
+                                   +-------------+        |
+                                           |              |
+                                           | signals      |
+                                           v              |
+                                     +----------+  zero   |
+                                     |          |---------+
                                      | DataPath |
                       input -------->|          |----------> output
                                      +----------+
@@ -369,8 +370,7 @@ def simulation(code, input_tokens, data_memory_size, limit):
 
     Длительность моделирования ограничена:
 
-    - количеством выполненных инструкций (`limit`), через исключение
-      `AssertionError`;
+    - количеством выполненных инструкций (`limit`);
 
     - количеством данных ввода (`input_tokens`, если ввод используется), через
       исключение `EOFError`;
@@ -383,8 +383,7 @@ def simulation(code, input_tokens, data_memory_size, limit):
 
     logging.debug("%s", control_unit)
     try:
-        while True:
-            assert limit > instr_counter, "too long execution, increase limit!"
+        while instr_counter < limit:
             control_unit.decode_and_execute_instruction()
             instr_counter += 1
             logging.debug("%s", control_unit)
@@ -393,6 +392,8 @@ def simulation(code, input_tokens, data_memory_size, limit):
     except StopIteration:
         pass
 
+    if instr_counter >= limit:
+        logging.warning("Limit exceeded!")
     logging.info("output_buffer: %s", repr("".join(data_path.output_buffer)))
     return "".join(data_path.output_buffer), instr_counter, control_unit.current_tick()
 
