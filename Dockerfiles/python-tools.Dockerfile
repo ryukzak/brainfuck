@@ -8,8 +8,6 @@ RUN mkdir /code
 COPY src/brainfuck/poetry.lock src/brainfuck/pyproject.toml /code
 WORKDIR /code
 
-# RUN apk --no-cache add python3-dev gcc libc-dev libffi-dev
-
 RUN pip install --no-cache-dir --progress-bar off "poetry==$POETRY_VERSION"
 
 RUN poetry config virtualenvs.create false \
