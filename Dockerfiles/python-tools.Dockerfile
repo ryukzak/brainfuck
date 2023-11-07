@@ -4,9 +4,8 @@ ENV PYTHONUNBUFFERED=1 \
   PIP_NO_CACHE_DIR=off \
   POETRY_VERSION=1.6.1
 
-RUN mkdir /code
-COPY src/brainfuck/poetry.lock src/brainfuck/pyproject.toml /code
 WORKDIR /code
+COPY src/brainfuck/poetry.lock src/brainfuck/pyproject.toml /code
 
 RUN pip install --no-cache-dir --progress-bar off "poetry==$POETRY_VERSION"
 
