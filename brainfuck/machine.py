@@ -126,7 +126,7 @@ class DataPath:
     def signal_wr(self, sel):
         """wr (от WRite), сохранить в память.
 
-        Запись в память осществляется на основе селектора `sel` в котором указывается `Opcode`:
+        Запись в память осуществляется на основе селектора `sel` в котором указывается `Opcode`:
 
         - `Opcode.INC.value` -- инкримент аккумулятора;
 
@@ -270,7 +270,7 @@ class ControlUnit:
 
     def decode_and_execute_control_flow_instruction(self, instr, opcode):
         """Декодировать и выполнить инструкцию управления потоком исполнения. В
-        случае успеха -- вернуть `True`, что бы перейти к следующей инструкции.
+        случае успеха -- вернуть `True`, чтобы перейти к следующей инструкции.
         """
         if opcode is Opcode.HALT:
             raise StopIteration()
