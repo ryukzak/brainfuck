@@ -46,1063 +46,137 @@ in_source: |-
 in_stdin: |-
   foo
 out_code: |-
-  [
-      {
-          "opcode": "jz",
-          "arg": 24,
-          "term": [
-              1,
-              1,
-              "["
-          ]
-      },
-      {
-          "opcode": "input",
-          "term": [
-              12,
-              7,
-              ","
-          ]
-      },
-      {
-          "opcode": "print",
-          "term": [
-              19,
-              11,
-              "."
-          ]
-      },
-      {
-          "opcode": "jz",
-          "arg": 6,
-          "term": [
-              20,
-              1,
-              "["
-          ]
-      },
-      {
-          "opcode": "print",
-          "term": [
-              24,
-              9,
-              "."
-          ]
-      },
-      {
-          "opcode": "jmp",
-          "arg": 3,
-          "term": [
-              24,
-              10,
-              "]"
-          ]
-      },
-      {
-          "opcode": "input",
-          "term": [
-              31,
-              6,
-              ","
-          ]
-      },
-      {
-          "opcode": "print",
-          "term": [
-              53,
-              11,
-              "."
-          ]
-      },
-      {
-          "opcode": "print",
-          "term": [
-              55,
-              2,
-              "."
-          ]
-      },
-      {
-          "opcode": "input",
-          "term": [
-              55,
-              4,
-              ","
-          ]
-      },
-      {
-          "opcode": "input",
-          "term": [
-              56,
-              2,
-              ","
-          ]
-      },
-      {
-          "opcode": "input",
-          "term": [
-              56,
-              4,
-              ","
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              57,
-              2,
-              "+"
-          ]
-      },
-      {
-          "opcode": "input",
-          "term": [
-              57,
-              4,
-              ","
-          ]
-      },
-      {
-          "opcode": "decrement",
-          "term": [
-              58,
-              2,
-              "-"
-          ]
-      },
-      {
-          "opcode": "input",
-          "term": [
-              58,
-              4,
-              ","
-          ]
-      },
-      {
-          "opcode": "left",
-          "term": [
-              59,
-              2,
-              "<"
-          ]
-      },
-      {
-          "opcode": "right",
-          "term": [
-              61,
-              2,
-              ">"
-          ]
-      },
-      {
-          "opcode": "input",
-          "term": [
-              65,
-              8,
-              ","
-          ]
-      },
-      {
-          "opcode": "jz",
-          "arg": 21,
-          "term": [
-              67,
-              2,
-              "["
-          ]
-      },
-      {
-          "opcode": "jmp",
-          "arg": 19,
-          "term": [
-              69,
-              2,
-              "]"
-          ]
-      },
-      {
-          "opcode": "print",
-          "term": [
-              75,
-              9,
-              "."
-          ]
-      },
-      {
-          "opcode": "print",
-          "term": [
-              103,
-              8,
-              "."
-          ]
-      },
-      {
-          "opcode": "jmp",
-          "arg": 0,
-          "term": [
-              104,
-              1,
-              "]"
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              105,
-              1,
-              "+"
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              105,
-              2,
-              "+"
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              105,
-              3,
-              "+"
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              105,
-              4,
-              "+"
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              105,
-              5,
-              "+"
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              105,
-              6,
-              "+"
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              105,
-              7,
-              "+"
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              105,
-              8,
-              "+"
-          ]
-      },
-      {
-          "opcode": "jz",
-          "arg": 73,
-          "term": [
-              111,
-              1,
-              "["
-          ]
-      },
-      {
-          "opcode": "right",
-          "term": [
-              112,
-              1,
-              ">"
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              112,
-              2,
-              "+"
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              112,
-              3,
-              "+"
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              112,
-              4,
-              "+"
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              112,
-              5,
-              "+"
-          ]
-      },
-      {
-          "opcode": "jz",
-          "arg": 58,
-          "term": [
-              126,
-              1,
-              "["
-          ]
-      },
-      {
-          "opcode": "right",
-          "term": [
-              136,
-              1,
-              ">"
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              136,
-              2,
-              "+"
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              136,
-              3,
-              "+"
-          ]
-      },
-      {
-          "opcode": "right",
-          "term": [
-              142,
-              1,
-              ">"
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              142,
-              2,
-              "+"
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              142,
-              3,
-              "+"
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              142,
-              4,
-              "+"
-          ]
-      },
-      {
-          "opcode": "right",
-          "term": [
-              148,
-              1,
-              ">"
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              148,
-              2,
-              "+"
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              148,
-              3,
-              "+"
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              148,
-              4,
-              "+"
-          ]
-      },
-      {
-          "opcode": "right",
-          "term": [
-              154,
-              1,
-              ">"
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              154,
-              2,
-              "+"
-          ]
-      },
-      {
-          "opcode": "left",
-          "term": [
-              160,
-              1,
-              "<"
-          ]
-      },
-      {
-          "opcode": "left",
-          "term": [
-              160,
-              2,
-              "<"
-          ]
-      },
-      {
-          "opcode": "left",
-          "term": [
-              160,
-              3,
-              "<"
-          ]
-      },
-      {
-          "opcode": "left",
-          "term": [
-              160,
-              4,
-              "<"
-          ]
-      },
-      {
-          "opcode": "decrement",
-          "term": [
-              160,
-              5,
-              "-"
-          ]
-      },
-      {
-          "opcode": "jmp",
-          "arg": 38,
-          "term": [
-              168,
-              1,
-              "]"
-          ]
-      },
-      {
-          "opcode": "right",
-          "term": [
-              180,
-              1,
-              ">"
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              180,
-              2,
-              "+"
-          ]
-      },
-      {
-          "opcode": "right",
-          "term": [
-              186,
-              1,
-              ">"
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              186,
-              2,
-              "+"
-          ]
-      },
-      {
-          "opcode": "right",
-          "term": [
-              192,
-              1,
-              ">"
-          ]
-      },
-      {
-          "opcode": "decrement",
-          "term": [
-              192,
-              2,
-              "-"
-          ]
-      },
-      {
-          "opcode": "right",
-          "term": [
-              198,
-              1,
-              ">"
-          ]
-      },
-      {
-          "opcode": "right",
-          "term": [
-              198,
-              2,
-              ">"
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              198,
-              3,
-              "+"
-          ]
-      },
-      {
-          "opcode": "jz",
-          "arg": 70,
-          "term": [
-              204,
-              1,
-              "["
-          ]
-      },
-      {
-          "opcode": "left",
-          "term": [
-              204,
-              2,
-              "<"
-          ]
-      },
-      {
-          "opcode": "jmp",
-          "arg": 67,
-          "term": [
-              204,
-              3,
-              "]"
-          ]
-      },
-      {
-          "opcode": "left",
-          "term": [
-              226,
-              1,
-              "<"
-          ]
-      },
-      {
-          "opcode": "decrement",
-          "term": [
-              226,
-              2,
-              "-"
-          ]
-      },
-      {
-          "opcode": "jmp",
-          "arg": 32,
-          "term": [
-              234,
-              1,
-              "]"
-          ]
-      },
-      {
-          "opcode": "right",
-          "term": [
-              272,
-              1,
-              ">"
-          ]
-      },
-      {
-          "opcode": "right",
-          "term": [
-              272,
-              2,
-              ">"
-          ]
-      },
-      {
-          "opcode": "print",
-          "term": [
-              272,
-              3,
-              "."
-          ]
-      },
-      {
-          "opcode": "right",
-          "term": [
-              281,
-              1,
-              ">"
-          ]
-      },
-      {
-          "opcode": "decrement",
-          "term": [
-              281,
-              2,
-              "-"
-          ]
-      },
-      {
-          "opcode": "decrement",
-          "term": [
-              281,
-              3,
-              "-"
-          ]
-      },
-      {
-          "opcode": "decrement",
-          "term": [
-              281,
-              4,
-              "-"
-          ]
-      },
-      {
-          "opcode": "print",
-          "term": [
-              281,
-              5,
-              "."
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              293,
-              1,
-              "+"
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              293,
-              2,
-              "+"
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              293,
-              3,
-              "+"
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              293,
-              4,
-              "+"
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              293,
-              5,
-              "+"
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              293,
-              6,
-              "+"
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              293,
-              7,
-              "+"
-          ]
-      },
-      {
-          "opcode": "print",
-          "term": [
-              293,
-              8,
-              "."
-          ]
-      },
-      {
-          "opcode": "print",
-          "term": [
-              293,
-              9,
-              "."
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              293,
-              10,
-              "+"
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              293,
-              11,
-              "+"
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              293,
-              12,
-              "+"
-          ]
-      },
-      {
-          "opcode": "print",
-          "term": [
-              293,
-              13,
-              "."
-          ]
-      },
-      {
-          "opcode": "right",
-          "term": [
-              300,
-              1,
-              ">"
-          ]
-      },
-      {
-          "opcode": "right",
-          "term": [
-              300,
-              2,
-              ">"
-          ]
-      },
-      {
-          "opcode": "print",
-          "term": [
-              300,
-              3,
-              "."
-          ]
-      },
-      {
-          "opcode": "left",
-          "term": [
-              308,
-              1,
-              "<"
-          ]
-      },
-      {
-          "opcode": "decrement",
-          "term": [
-              308,
-              2,
-              "-"
-          ]
-      },
-      {
-          "opcode": "print",
-          "term": [
-              308,
-              3,
-              "."
-          ]
-      },
-      {
-          "opcode": "left",
-          "term": [
-              320,
-              1,
-              "<"
-          ]
-      },
-      {
-          "opcode": "print",
-          "term": [
-              320,
-              2,
-              "."
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              332,
-              1,
-              "+"
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              332,
-              2,
-              "+"
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              332,
-              3,
-              "+"
-          ]
-      },
-      {
-          "opcode": "print",
-          "term": [
-              332,
-              4,
-              "."
-          ]
-      },
-      {
-          "opcode": "decrement",
-          "term": [
-              332,
-              5,
-              "-"
-          ]
-      },
-      {
-          "opcode": "decrement",
-          "term": [
-              332,
-              6,
-              "-"
-          ]
-      },
-      {
-          "opcode": "decrement",
-          "term": [
-              332,
-              7,
-              "-"
-          ]
-      },
-      {
-          "opcode": "decrement",
-          "term": [
-              332,
-              8,
-              "-"
-          ]
-      },
-      {
-          "opcode": "decrement",
-          "term": [
-              332,
-              9,
-              "-"
-          ]
-      },
-      {
-          "opcode": "decrement",
-          "term": [
-              332,
-              10,
-              "-"
-          ]
-      },
-      {
-          "opcode": "print",
-          "term": [
-              332,
-              11,
-              "."
-          ]
-      },
-      {
-          "opcode": "decrement",
-          "term": [
-              332,
-              12,
-              "-"
-          ]
-      },
-      {
-          "opcode": "decrement",
-          "term": [
-              332,
-              13,
-              "-"
-          ]
-      },
-      {
-          "opcode": "decrement",
-          "term": [
-              332,
-              14,
-              "-"
-          ]
-      },
-      {
-          "opcode": "decrement",
-          "term": [
-              332,
-              15,
-              "-"
-          ]
-      },
-      {
-          "opcode": "decrement",
-          "term": [
-              332,
-              16,
-              "-"
-          ]
-      },
-      {
-          "opcode": "decrement",
-          "term": [
-              332,
-              17,
-              "-"
-          ]
-      },
-      {
-          "opcode": "decrement",
-          "term": [
-              332,
-              18,
-              "-"
-          ]
-      },
-      {
-          "opcode": "decrement",
-          "term": [
-              332,
-              19,
-              "-"
-          ]
-      },
-      {
-          "opcode": "print",
-          "term": [
-              332,
-              20,
-              "."
-          ]
-      },
-      {
-          "opcode": "right",
-          "term": [
-              339,
-              1,
-              ">"
-          ]
-      },
-      {
-          "opcode": "right",
-          "term": [
-              339,
-              2,
-              ">"
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              339,
-              3,
-              "+"
-          ]
-      },
-      {
-          "opcode": "print",
-          "term": [
-              339,
-              4,
-              "."
-          ]
-      },
-      {
-          "opcode": "right",
-          "term": [
-              350,
-              1,
-              ">"
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              350,
-              2,
-              "+"
-          ]
-      },
-      {
-          "opcode": "increment",
-          "term": [
-              350,
-              3,
-              "+"
-          ]
-      },
-      {
-          "opcode": "print",
-          "term": [
-              350,
-              4,
-              "."
-          ]
-      },
-      {
-          "opcode": "halt"
-      }
-  ]
+  [{"opcode": "jz", "arg": 24, "term": [1, 1, "["]},
+   {"opcode": "input", "term": [12, 7, ","]},
+   {"opcode": "print", "term": [19, 11, "."]},
+   {"opcode": "jz", "arg": 6, "term": [20, 1, "["]},
+   {"opcode": "print", "term": [24, 9, "."]},
+   {"opcode": "jmp", "arg": 3, "term": [24, 10, "]"]},
+   {"opcode": "input", "term": [31, 6, ","]},
+   {"opcode": "print", "term": [53, 11, "."]},
+   {"opcode": "print", "term": [55, 2, "."]},
+   {"opcode": "input", "term": [55, 4, ","]},
+   {"opcode": "input", "term": [56, 2, ","]},
+   {"opcode": "input", "term": [56, 4, ","]},
+   {"opcode": "increment", "term": [57, 2, "+"]},
+   {"opcode": "input", "term": [57, 4, ","]},
+   {"opcode": "decrement", "term": [58, 2, "-"]},
+   {"opcode": "input", "term": [58, 4, ","]},
+   {"opcode": "left", "term": [59, 2, "<"]},
+   {"opcode": "right", "term": [61, 2, ">"]},
+   {"opcode": "input", "term": [65, 8, ","]},
+   {"opcode": "jz", "arg": 21, "term": [67, 2, "["]},
+   {"opcode": "jmp", "arg": 19, "term": [69, 2, "]"]},
+   {"opcode": "print", "term": [75, 9, "."]},
+   {"opcode": "print", "term": [103, 8, "."]},
+   {"opcode": "jmp", "arg": 0, "term": [104, 1, "]"]},
+   {"opcode": "increment", "term": [105, 1, "+"]},
+   {"opcode": "increment", "term": [105, 2, "+"]},
+   {"opcode": "increment", "term": [105, 3, "+"]},
+   {"opcode": "increment", "term": [105, 4, "+"]},
+   {"opcode": "increment", "term": [105, 5, "+"]},
+   {"opcode": "increment", "term": [105, 6, "+"]},
+   {"opcode": "increment", "term": [105, 7, "+"]},
+   {"opcode": "increment", "term": [105, 8, "+"]},
+   {"opcode": "jz", "arg": 73, "term": [111, 1, "["]},
+   {"opcode": "right", "term": [112, 1, ">"]},
+   {"opcode": "increment", "term": [112, 2, "+"]},
+   {"opcode": "increment", "term": [112, 3, "+"]},
+   {"opcode": "increment", "term": [112, 4, "+"]},
+   {"opcode": "increment", "term": [112, 5, "+"]},
+   {"opcode": "jz", "arg": 58, "term": [126, 1, "["]},
+   {"opcode": "right", "term": [136, 1, ">"]},
+   {"opcode": "increment", "term": [136, 2, "+"]},
+   {"opcode": "increment", "term": [136, 3, "+"]},
+   {"opcode": "right", "term": [142, 1, ">"]},
+   {"opcode": "increment", "term": [142, 2, "+"]},
+   {"opcode": "increment", "term": [142, 3, "+"]},
+   {"opcode": "increment", "term": [142, 4, "+"]},
+   {"opcode": "right", "term": [148, 1, ">"]},
+   {"opcode": "increment", "term": [148, 2, "+"]},
+   {"opcode": "increment", "term": [148, 3, "+"]},
+   {"opcode": "increment", "term": [148, 4, "+"]},
+   {"opcode": "right", "term": [154, 1, ">"]},
+   {"opcode": "increment", "term": [154, 2, "+"]},
+   {"opcode": "left", "term": [160, 1, "<"]},
+   {"opcode": "left", "term": [160, 2, "<"]},
+   {"opcode": "left", "term": [160, 3, "<"]},
+   {"opcode": "left", "term": [160, 4, "<"]},
+   {"opcode": "decrement", "term": [160, 5, "-"]},
+   {"opcode": "jmp", "arg": 38, "term": [168, 1, "]"]},
+   {"opcode": "right", "term": [180, 1, ">"]},
+   {"opcode": "increment", "term": [180, 2, "+"]},
+   {"opcode": "right", "term": [186, 1, ">"]},
+   {"opcode": "increment", "term": [186, 2, "+"]},
+   {"opcode": "right", "term": [192, 1, ">"]},
+   {"opcode": "decrement", "term": [192, 2, "-"]},
+   {"opcode": "right", "term": [198, 1, ">"]},
+   {"opcode": "right", "term": [198, 2, ">"]},
+   {"opcode": "increment", "term": [198, 3, "+"]},
+   {"opcode": "jz", "arg": 70, "term": [204, 1, "["]},
+   {"opcode": "left", "term": [204, 2, "<"]},
+   {"opcode": "jmp", "arg": 67, "term": [204, 3, "]"]},
+   {"opcode": "left", "term": [226, 1, "<"]},
+   {"opcode": "decrement", "term": [226, 2, "-"]},
+   {"opcode": "jmp", "arg": 32, "term": [234, 1, "]"]},
+   {"opcode": "right", "term": [272, 1, ">"]},
+   {"opcode": "right", "term": [272, 2, ">"]},
+   {"opcode": "print", "term": [272, 3, "."]},
+   {"opcode": "right", "term": [281, 1, ">"]},
+   {"opcode": "decrement", "term": [281, 2, "-"]},
+   {"opcode": "decrement", "term": [281, 3, "-"]},
+   {"opcode": "decrement", "term": [281, 4, "-"]},
+   {"opcode": "print", "term": [281, 5, "."]},
+   {"opcode": "increment", "term": [293, 1, "+"]},
+   {"opcode": "increment", "term": [293, 2, "+"]},
+   {"opcode": "increment", "term": [293, 3, "+"]},
+   {"opcode": "increment", "term": [293, 4, "+"]},
+   {"opcode": "increment", "term": [293, 5, "+"]},
+   {"opcode": "increment", "term": [293, 6, "+"]},
+   {"opcode": "increment", "term": [293, 7, "+"]},
+   {"opcode": "print", "term": [293, 8, "."]},
+   {"opcode": "print", "term": [293, 9, "."]},
+   {"opcode": "increment", "term": [293, 10, "+"]},
+   {"opcode": "increment", "term": [293, 11, "+"]},
+   {"opcode": "increment", "term": [293, 12, "+"]},
+   {"opcode": "print", "term": [293, 13, "."]},
+   {"opcode": "right", "term": [300, 1, ">"]},
+   {"opcode": "right", "term": [300, 2, ">"]},
+   {"opcode": "print", "term": [300, 3, "."]},
+   {"opcode": "left", "term": [308, 1, "<"]},
+   {"opcode": "decrement", "term": [308, 2, "-"]},
+   {"opcode": "print", "term": [308, 3, "."]},
+   {"opcode": "left", "term": [320, 1, "<"]},
+   {"opcode": "print", "term": [320, 2, "."]},
+   {"opcode": "increment", "term": [332, 1, "+"]},
+   {"opcode": "increment", "term": [332, 2, "+"]},
+   {"opcode": "increment", "term": [332, 3, "+"]},
+   {"opcode": "print", "term": [332, 4, "."]},
+   {"opcode": "decrement", "term": [332, 5, "-"]},
+   {"opcode": "decrement", "term": [332, 6, "-"]},
+   {"opcode": "decrement", "term": [332, 7, "-"]},
+   {"opcode": "decrement", "term": [332, 8, "-"]},
+   {"opcode": "decrement", "term": [332, 9, "-"]},
+   {"opcode": "decrement", "term": [332, 10, "-"]},
+   {"opcode": "print", "term": [332, 11, "."]},
+   {"opcode": "decrement", "term": [332, 12, "-"]},
+   {"opcode": "decrement", "term": [332, 13, "-"]},
+   {"opcode": "decrement", "term": [332, 14, "-"]},
+   {"opcode": "decrement", "term": [332, 15, "-"]},
+   {"opcode": "decrement", "term": [332, 16, "-"]},
+   {"opcode": "decrement", "term": [332, 17, "-"]},
+   {"opcode": "decrement", "term": [332, 18, "-"]},
+   {"opcode": "decrement", "term": [332, 19, "-"]},
+   {"opcode": "print", "term": [332, 20, "."]},
+   {"opcode": "right", "term": [339, 1, ">"]},
+   {"opcode": "right", "term": [339, 2, ">"]},
+   {"opcode": "increment", "term": [339, 3, "+"]},
+   {"opcode": "print", "term": [339, 4, "."]},
+   {"opcode": "right", "term": [350, 1, ">"]},
+   {"opcode": "increment", "term": [350, 2, "+"]},
+   {"opcode": "increment", "term": [350, 3, "+"]},
+   {"opcode": "print", "term": [350, 4, "."]},
+   {"opcode": "halt"}]
 out_stdout: |
   source LoC: 357 code instr: 131
   ============================================================

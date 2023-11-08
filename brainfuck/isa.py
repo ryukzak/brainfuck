@@ -83,7 +83,12 @@ class Term(namedtuple("Term", "line pos symbol")):
 def write_code(filename, code):
     """Записать машинный код в файл."""
     with open(filename, "w", encoding="utf-8") as file:
-        file.write(json.dumps(code, indent=4))
+        # Почему не: `file.write(json.dumps(code, indent=4))`?
+        # Что бы одна инструкция была на одну строку.
+        buf = []
+        for instr in code:
+            buf.append(json.dumps(instr))
+        file.write("[" + ",\n ".join(buf) + "]")
 
 
 def read_code(filename):
