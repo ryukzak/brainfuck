@@ -345,7 +345,7 @@ class ControlUnit:
 
     def __repr__(self):
         """Вернуть строковое представление состояния процессора."""
-        state = "{{TICK: {}, PC: {}, ADDR: {}, OUT: {}, ACC: {}}}".format(
+        state_repr = "TICK: {:3} PC: {:3} ADDR: {:3} MEM_OUT: {} ACC: {}".format(
             self._tick,
             self.program_counter,
             self.data_path.data_address,
@@ -355,14 +355,16 @@ class ControlUnit:
 
         instr = self.program[self.program_counter]
         opcode = instr["opcode"]
-        arg = instr.get("arg", "")
+        instr_repr = str(opcode)
 
-        term = instr.get("term", None)
-        action = "xxx"
-        if term is not None:
-            action = "{} {} ('{}' @ {}:{})".format(opcode, arg, term.symbol, term.line, term.pos)
+        if "arg" in instr:
+            instr_repr += " {}".format(instr["arg"])
 
-        return "{} {}".format(state, action)
+        if "term" in instr:
+            term = instr["term"]
+            instr_repr += "  ('{}'@{}:{})".format(term.symbol, term.line, term.pos)
+
+        return "{} \t{}".format(state_repr, instr_repr)
 
 
 def simulation(code, input_tokens, data_memory_size, limit):
