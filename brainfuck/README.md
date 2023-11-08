@@ -120,7 +120,7 @@ comment ::= <any symbols except: "><+-.,[]">
 
 ## Транслятор
 
-Интерфейс командной строки: `translator.py <input_file> <target_file>"`
+Интерфейс командной строки: `translator.py <input_file> <target_file>`
 
 Реализовано в модуле: [translator](./translator.py)
 
@@ -162,7 +162,7 @@ comment ::= <any symbols except: "><+-.,[]">
     sel -->|  MUX  |         +----------+     |        |
            +-------+         |                |        |
             ^     ^          |                |        |
-            |     |          |        data_in  |        | data_out
+            |     |          |       data_in  |        | data_out
             |     +---(+1)---+          +---->|        |-----+
             |                |          |     |        |     |
             +---------(-1)---+          |  oe |        |     |
@@ -243,7 +243,7 @@ comment ::= <any symbols except: "><+-.,[]">
 
 Реализован в классе `ControlUnit`.
 
-- Hardwired (реализовано полностью на python).
+- Hardwired (реализовано полностью на Python).
 - Метод `decode_and_execute_instruction` моделирует выполнение полного цикла инструкции (1-2 такта процессора).
 - `step_counter` необходим для многотактовых инструкций;
     - в реализации класс `ControlUnit` отсутствует, т.к. неявно задан потоком управления.
