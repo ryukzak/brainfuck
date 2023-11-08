@@ -46,14 +46,14 @@ def test_whole_by_golden(golden, caplog):
 
     Вход:
 
-    - `source` -- исходный код
-    - `input` -- данные на ввод процессора для симуляции
+    - `in_source` -- исходный код
+    - `in_stdin` -- данные на ввод процессора для симуляции
 
     Выход:
 
-    - `code` -- машинный код, сгенерированный транслятором
-    - `output` -- стандартный вывод транслятора и симулятора
-    - `log` -- журнал программы
+    - `out_code` -- машинный код, сгенерированный транслятором
+    - `out_stdout` -- стандартный вывод транслятора и симулятора
+    - `out_log` -- журнал программы
     """
     # Установим уровень отладочного вывода на DEBUG
     caplog.set_level(logging.DEBUG)
@@ -67,9 +67,9 @@ def test_whole_by_golden(golden, caplog):
 
         # Записываем входные данные в файлы. Данные берутся из теста.
         with open(source, "w", encoding="utf-8") as file:
-            file.write(golden["source"])
+            file.write(golden["in_source"])
         with open(input_stream, "w", encoding="utf-8") as file:
-            file.write(golden["input"])
+            file.write(golden["in_stdin"])
 
         # Запускаем транслятор и собираем весь стандартный вывод в переменную
         # stdout
@@ -83,9 +83,9 @@ def test_whole_by_golden(golden, caplog):
             code = file.read()
 
         # Проверяем, что ожидания соответствуют реальности.
-        assert code == golden.out["code"]
-        assert stdout.getvalue() == golden.out["output"]
-        assert caplog.text == golden.out["log"]
+        assert code == golden.out["out_code"]
+        assert stdout.getvalue() == golden.out["out_stdout"]
+        assert caplog.text == golden.out["out_log"]
 
 
 class TestWhole(unittest.TestCase):

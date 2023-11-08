@@ -1,8 +1,8 @@
-source: |-
+in_source: |-
   ,[.,]
-input: |-
+in_stdin: |-
   foo
-code: |-
+out_code: |-
   [
       {
           "opcode": "input",
@@ -50,12 +50,12 @@ code: |-
           "opcode": "halt"
       }
   ]
-output: |
+out_stdout: |
   source LoC: 1 code instr: 6
   ============================================================
   foo
   instr_counter:  11 ticks: 21
-log: |
+out_log: |
   DEBUG machine:simulation {TICK: 0, PC: 0, ADDR: 0, OUT: 0, ACC: 0} input  (',' @ 1:1)
   DEBUG machine:signal_wr input: 'f'
   DEBUG machine:simulation {TICK: 2, PC: 1, ADDR: 0, OUT: 102, ACC: 0} jz 5 ('[' @ 1:2)

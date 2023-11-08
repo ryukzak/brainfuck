@@ -1,4 +1,4 @@
-source: |-
+in_source: |-
   [ This program prints "Hello World!" and a newline to the screen, its
   length is 106 active command characters. [It is not the shortest.]
 
@@ -43,9 +43,9 @@ source: |-
     >>+.                    Add 1 to Cell #5 gives us an exclamation point
   >++.                    And finally a newline from Cell #6
 
-input: |-
+in_stdin: |-
   foo
-code: |-
+out_code: |-
   [
       {
           "opcode": "jz",
@@ -1103,13 +1103,13 @@ code: |-
           "opcode": "halt"
       }
   ]
-output: |
+out_stdout: |
   source LoC: 357 code instr: 131
   ============================================================
   Hello World!
 
   instr_counter:  987 ticks: 1532
-log: |
+out_log: |
   DEBUG machine:simulation {TICK: 0, PC: 0, ADDR: 0, OUT: 0, ACC: 0} jz 24 ('[' @ 1:1)
   DEBUG machine:simulation {TICK: 2, PC: 24, ADDR: 0, OUT: 0, ACC: 0} increment  ('+' @ 105:1)
   DEBUG machine:simulation {TICK: 4, PC: 25, ADDR: 0, OUT: 1, ACC: 0} increment  ('+' @ 105:2)
