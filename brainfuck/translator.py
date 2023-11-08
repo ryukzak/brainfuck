@@ -79,13 +79,13 @@ def translate(text):
         elif term.symbol == "]":
             # формируем цикл с началом из jmp_stack
             begin_pc = jmp_stack.pop()
-            begin = {"opcode": Opcode.JZ, "arg": pc + 1, "term": terms[begin_pc]}
-            end = {"opcode": Opcode.JMP, "arg": begin_pc, "term": term}
+            begin = {"index": pc, "opcode": Opcode.JZ, "arg": pc + 1, "term": terms[begin_pc]}
+            end = {"index": pc, "opcode": Opcode.JMP, "arg": begin_pc, "term": term}
             code[begin_pc] = begin
             code.append(end)
         else:
             # Обработка тривиально отображаемых операций.
-            code.append({"opcode": symbol2opcode(term.symbol), "term": term})
+            code.append({"index": pc, "opcode": symbol2opcode(term.symbol), "term": term})
 
     # Добавляем инструкцию остановки процессора в конец программы.
     code.append({"opcode": Opcode.HALT})
