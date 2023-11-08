@@ -2,10 +2,10 @@
 
 В данном модуле использованы два подхода для тестирования:
 
-- golden tests (`test_whole_by_golden`) -- легковесные и удобные (рекомендуется
+- golden tests (`test_translator_and_machine`) -- легковесные и удобные (рекомендуется
   для выполнения задачи)
 
-- традиционные тесты (`TestWhole`) -- тяжеловесные и не удобные (не требуются
+- традиционные тесты (`TestTranslatorAndMachine`) -- тяжеловесные и не удобные (не требуются
   для выполнения задачи)
 
 - дополнительно рекомендуется делать unit-тесты для отдельных функций, где это
@@ -25,7 +25,7 @@ import translator
 
 
 @pytest.mark.golden_test("golden/*.yml")
-def test_whole_by_golden(golden, caplog):
+def test_translator_and_machine(golden, caplog):
     """Используется подход golden tests. У него не самая удачная реализация для
     python: https://pypi.org/project/pytest-golden/ , но знать об этом подходе
     крайне полезно.
@@ -88,14 +88,14 @@ def test_whole_by_golden(golden, caplog):
         assert caplog.text == golden.out["out_log"]
 
 
-class TestWhole(unittest.TestCase):
+class TestTranslatorAndMachine(unittest.TestCase):
     """Данные тесты оставлены для общего развития. Для выполнения лабораторной
     работы они не требуются.
 
     В задании лабораторной работы необходимо использовать golden tests.
     """
 
-    def test_hello(self):
+    def test_hello_example(self):
         # Создаём временную папку для скомпилированного файла. Удаляется автоматически.
         with tempfile.TemporaryDirectory() as tmpdirname:
             source = "examples/hello.bf"
@@ -113,7 +113,7 @@ class TestWhole(unittest.TestCase):
                 == "source LoC: 357 code instr: 131\nHello World!\n\ninstr_counter:  987 ticks: 1532\n"
             )
 
-    def test_cat(self):
+    def test_cat_example(self):
         with tempfile.TemporaryDirectory() as tmpdirname:
             source = "examples/cat.bf"
             target = os.path.join(tmpdirname, "machine_code.out")
@@ -135,7 +135,7 @@ class TestWhole(unittest.TestCase):
                 "INFO:root:output_buffer: 'Hello World from input!\\n'",
             ]
 
-    def test_cat_trace(self):
+    def test_cat_example_log(self):
         with tempfile.TemporaryDirectory() as tmpdirname:
             source = "examples/cat.bf"
             target = os.path.join(tmpdirname, "machine_code.out")

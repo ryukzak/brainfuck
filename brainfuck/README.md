@@ -316,7 +316,7 @@ $ cat target.out
  {"index": 2, "opcode": "print", "term": [1, 3, "."]},
  {"index": 3, "opcode": "input", "term": [1, 4, ","]},
  {"index": 4, "opcode": "jmp", "arg": 1, "term": [1, 5, "]"]},
- {"opcode": "halt"}]⏎ 
+ {"opcode": "halt"}]⏎
 $ ./machine.py target.out examples/foo_input.txt
 DEBUG:root:TICK:   0 PC:   0 ADDR:   0 MEM_OUT: 0 ACC: 0  input  (','@1:1)
 DEBUG:root:input: 'f'
@@ -360,9 +360,9 @@ collected 6 items
 
 integration_test.py::test_translator_and_machine[golden/cat.yml] PASSED              [ 16%]
 integration_test.py::test_translator_and_machine[golden/hello.yml] PASSED            [ 33%]
-integration_test.py::TestWhole::test_cat PASSED                                      [ 50%]
-integration_test.py::TestWhole::test_cat_trace PASSED                                [ 66%]
-integration_test.py::TestWhole::test_hello PASSED                                    [ 83%]
+integration_test.py::TestTranslatorAndMachine::test_cat_example PASSED               [ 50%]
+integration_test.py::TestTranslatorAndMachine::test_cat_example_log PASSED           [ 66%]
+integration_test.py::TestTranslatorAndMachine::test_hello_example PASSED             [ 83%]
 machine.py::machine.DataPath.signal_wr PASSED                                        [100%]
 
 ==================================== 6 passed in 0.14s =====================================
