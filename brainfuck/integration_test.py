@@ -35,7 +35,7 @@ def test_whole_by_golden(golden, caplog):
     выход изменился -- выводится ошибка.
 
     Если вы меняете логику работы приложения -- то запускаете тесты с ключом:
-    `cd src/brainfuck && pytest . -v --update-goldens`
+    `cd src/brainfuck && poetry run pytest . -v --update-goldens`
 
     Это обновит файлы конфигурации, и вы можете закоммитить изменения в
     репозиторий, если они корректные.

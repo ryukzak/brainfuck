@@ -346,6 +346,31 @@ WARNING:root:Input buffer is empty!
 INFO:root:output_buffer: 'foo\n'
 ```
 
+Пример проверки исходного кода:
+
+``` shell
+$ poetry run pytest . -v --update-goldens
+=================================== test session starts ====================================
+platform darwin -- Python 3.12.0, pytest-7.4.3, pluggy-1.3.0 -- /Users/ryukzak/Library/Caches/pypoetry/virtualenvs/brainfuck-NIOcuFng-py3.12/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/ryukzak/edu/csa/src/brainfuck
+configfile: pyproject.toml
+plugins: golden-0.2.2
+collected 6 items                                                                          
+
+integration_test.py::test_translator_and_machine[golden/cat.yml] PASSED              [ 16%]
+integration_test.py::test_translator_and_machine[golden/hello.yml] PASSED            [ 33%]
+integration_test.py::TestWhole::test_cat PASSED                                      [ 50%]
+integration_test.py::TestWhole::test_cat_trace PASSED                                [ 66%]
+integration_test.py::TestWhole::test_hello PASSED                                    [ 83%]
+machine.py::machine.DataPath.signal_wr PASSED                                        [100%]
+
+==================================== 6 passed in 0.14s =====================================
+$ poetry run ruff check .
+$ poetry run ruff format .
+4 files left unchanged
+```
+
 ```text
 | ФИО                            | алг   | LoC | code байт | code инстр. | инстр. | такт. | вариант |
 | Пенской Александр Владимирович | hello | ... | -         | ...         | ...    | ...   | ...     |
