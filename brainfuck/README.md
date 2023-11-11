@@ -294,7 +294,7 @@ lab3-example:
 
 где:
 
-- `ryukzak/python-tools` -- docker образ, который содержит все необходимые для проверки утилиты. Подробнее: [Dockerfile](/src/brailfuck/Dockerfile)
+- `ryukzak/python-tools` -- docker образ, который содержит все необходимые для проверки утилиты. Подробнее: [Dockerfile](/src/Dockerfiles/python-tools.Dockerfile)
 - `poetry` -- управления зависимостями для языка программирования Python.
 - `coverage` -- формирование отчёта об уровне покрытия исходного кода.
 - `pytest` -- утилита для запуска тестов.
