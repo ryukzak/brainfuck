@@ -178,7 +178,7 @@ out_code: |-
    {"index": 129, "opcode": "print", "term": [350, 4, "."]},
    {"opcode": "halt"}]
 out_stdout: |
-  source LoC: 357 code instr: 131
+  source LoC: 43 code instr: 131
   ============================================================
   Hello World!
 

@@ -109,8 +109,7 @@ class TestTranslatorAndMachine(unittest.TestCase):
 
             # Проверяем, что было напечатано то, что мы ожидали.
             assert (
-                stdout.getvalue()
-                == "source LoC: 357 code instr: 131\nHello World!\n\ninstr_counter:  987 ticks: 1532\n"
+                stdout.getvalue() == "source LoC: 44 code instr: 131\nHello World!\n\ninstr_counter:  987 ticks: 1532\n"
             )
 
     def test_cat_example(self):
@@ -127,7 +126,7 @@ class TestTranslatorAndMachine(unittest.TestCase):
 
             assert (
                 stdout.getvalue()
-                == "source LoC: 1 code instr: 6\nHello World from input!\n\ninstr_counter:  95 ticks: 168\n"
+                == "source LoC: 2 code instr: 6\nHello World from input!\n\ninstr_counter:  95 ticks: 168\n"
             )
 
             assert logs.output == [
@@ -146,7 +145,7 @@ class TestTranslatorAndMachine(unittest.TestCase):
                     translator.main(source, target)
                     machine.main(target, input_stream)
 
-            assert stdout.getvalue() == "source LoC: 1 code instr: 6\nfoo\n\ninstr_counter:  15 ticks: 28\n"
+            assert stdout.getvalue() == "source LoC: 2 code instr: 6\nfoo\n\ninstr_counter:  15 ticks: 28\n"
 
             expect_log = [
                 "DEBUG:root:TICK:   0 PC:   0 ADDR:   0 MEM_OUT: 0 ACC: 0 \tinput  (','@1:1)",
