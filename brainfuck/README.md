@@ -357,7 +357,7 @@ cachedir: .pytest_cache
 rootdir: /Users/ryukzak/edu/csa/src/brainfuck
 configfile: pyproject.toml
 plugins: golden-0.2.2
-collected 6 items                                                                          
+collected 6 items
 
 integration_test.py::test_translator_and_machine[golden/cat.yml] PASSED              [ 16%]
 integration_test.py::test_translator_and_machine[golden/hello.yml] PASSED            [ 33%]
