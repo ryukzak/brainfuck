@@ -1,0 +1,20 @@
+(library
+ (name machine)
+ (libraries core yojson ppx_deriving.std)
+ (modules machine)
+ (preprocess
+  (pps ppx_deriving.show ppx_expect ppx_inline_test)))
+
+(library
+ (name test_machine)
+ (libraries machine)
+ (modules test_cat test_hello)
+ (inline_tests
+  (deps examples/cat.json examples/hello.json examples/foo_input.txt))
+ (preprocess
+  (pps ppx_deriving.show ppx_expect ppx_inline_test)))
+
+(executable
+ (name machine_cli)
+ (libraries machine)
+ (modules machine_cli))

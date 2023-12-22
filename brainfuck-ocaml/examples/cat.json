@@ -1,0 +1,8 @@
+[
+  { "index": 0, "opcode": "input", "term": [1, 1, ","] },
+  { "index": 4, "opcode": "jz", "arg": 5, "term": [1, 2, "["] },
+  { "index": 2, "opcode": "print", "term": [1, 3, "."] },
+  { "index": 3, "opcode": "input", "term": [1, 4, ","] },
+  { "index": 4, "opcode": "jmp", "arg": 1, "term": [1, 5, "]"] },
+  { "index": 5, "opcode": "halt" }
+]
