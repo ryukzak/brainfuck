@@ -176,7 +176,7 @@ out_code: |-
    {"index": 127, "opcode": "increment", "term": [350, 2, "+"]},
    {"index": 128, "opcode": "increment", "term": [350, 3, "+"]},
    {"index": 129, "opcode": "print", "term": [350, 4, "."]},
-   {"opcode": "halt"}]
+   {"index": 130, "opcode": "halt"}]
 out_stdout: |
   source LoC: 43 code instr: 131
   ============================================================

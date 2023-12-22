@@ -88,7 +88,7 @@ def translate(text):
             code.append({"index": pc, "opcode": symbol2opcode(term.symbol), "term": term})
 
     # Добавляем инструкцию остановки процессора в конец программы.
-    code.append({"opcode": Opcode.HALT})
+    code.append({"index": len(code), "opcode": Opcode.HALT})
     return code
 
 
