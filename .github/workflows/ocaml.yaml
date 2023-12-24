@@ -1,0 +1,44 @@
+name: OCaml CI
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - ".github/workflows/*"
+      - "ocaml/**"
+  pull_request:
+    branches:
+      - master
+    paths:
+      - ".github/workflows/*"
+      - "ocaml/**"
+
+defaults:
+  run:
+    working-directory: ./ocaml
+
+jobs:
+  build-test-format:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up OCaml
+        uses: ocaml/setup-ocaml@v2.2.0
+        with:
+          ocaml-compiler: 5.1
+
+      - name: Install dependencies
+        run: opam install --deps-only --locked .
+
+      - name: Build project
+        run: opam exec -- dune build
+
+      - name: Run tests
+        run: opam exec -- dune runtest
+
+      - name: Check formatting
+        run: opam exec -- dune fmt

@@ -1,1 +1,31 @@
 (lang dune 3.12)
+
+(name brainfuck_machine)
+
+(generate_opam_files true)
+
+(license BSD-3-Clause)
+
+(authors
+ "Aleksandr Penskoi <aleksandr.penskoi@gmail.com>")
+
+(maintainers
+ "Aleksandr Penskoi <aleksandr.penskoi@gmail.com>")
+
+(source
+ (github ryukzak/brainfuck))
+
+(package
+ (name brainfuck_machine)
+
+ (synopsis "Example process with brainfuck processor models with hardwired and microded organisation.")
+
+ (allow_empty)
+
+ (depends
+  (ocaml (>= 5.1))
+   core
+   yojson
+   ppx_deriving
+   ocamlformat
+   dune))

@@ -27,7 +27,3 @@ How to:
 - Run tests: `dune runtest`
 - Run tests & update expectations: `dune runtest --auto-promote`
 - Format code: `dune fmt`
-
-TODO:
-
-- Setup CI
