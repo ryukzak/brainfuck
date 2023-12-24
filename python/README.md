@@ -276,26 +276,66 @@ comment ::= <any symbols except: "><+-.,[]">
 - через golden tests, конфигурация которых лежит в папке [golden](./golden) (требуются по заданию).
 - через unittest (приведён как **устаревший** пример).
 
-CI:
+CI при помощи Github Action:
 
 ``` yaml
-lab3-example:
-  stage: test
-  image:
-    name: ryukzak/python-tools
-    entrypoint: [""]
-  script:
-    - cd src/brainfuck
-    - poetry install
-    - coverage run -m pytest --verbose
-    - find . -type f -name "*.py" | xargs -t coverage report
-    - ruff format --check .
-    - ruff check .
+defaults:
+  run:
+    working-directory: ./python
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install poetry
+          poetry install
+
+      - name: Run tests and collect coverage
+        run: |
+          poetry run coverage run -m pytest .
+          poetry run coverage report -m
+        env:
+          CI: true
+
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install poetry
+          poetry install
+
+      - name: Check code formatting with Ruff
+        run: poetry run ruff format --check .
+
+      - name: Run Ruff linters
+        run: poetry run ruff check .
 ```
 
 где:
 
-- `ryukzak/python-tools` -- docker образ содержит все необходимые для проверки утилиты. Подробнее: [Dockerfile](/src/Dockerfiles/python-tools.Dockerfile)
 - `poetry` -- управления зависимостями для языка программирования Python.
 - `coverage` -- формирование отчёта об уровне покрытия исходного кода.
 - `pytest` -- утилита для запуска тестов.
