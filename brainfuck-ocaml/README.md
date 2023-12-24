@@ -6,6 +6,8 @@ Motivation:
 - functional programming example;
 - microcoded example.
 
+It is not a well documented example! It just an idea demonstrations.
+
 Structure:
 
 - `code.ml` -- types for machine code representation and JSON parser.
