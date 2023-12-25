@@ -18,7 +18,7 @@
 (package
  (name brainfuck_machine)
 
- (synopsis "Example process with brainfuck processor models with hardwired and microded organisation.")
+ (synopsis "Example process with brainfuck processor models with hardwired and microded organisation")
 
  (allow_empty)
 
