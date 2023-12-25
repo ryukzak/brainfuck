@@ -1,5 +1,5 @@
 module Json = Yojson.Safe
-module JsonU = Yojson.Safe.Util
+module JsonUtil = Yojson.Safe.Util
 
 (************************************************************)
 (* Code parsing from json file. *)
@@ -17,17 +17,14 @@ let opcode_of_string = function
   | "jmp" -> Jmp
   | "jz" -> Jz
   | "halt" -> Halt
-  | text -> failwith ("isa_from_string: invalid string: " ^ text)
+  | text -> failwith ("opcode_of_string: invalid string: " ^ text)
 
 type term = { line : int; pos : int; symbol : string } [@@deriving show]
 
-let term_fo_json_list = function
+let term_of_json_list = function
   | `List [ line; pos; symbol ] ->
-      {
-        line = JsonU.to_int line;
-        pos = JsonU.to_int pos;
-        symbol = JsonU.to_string symbol;
-      }
+      JsonUtil.
+        { line = to_int line; pos = to_int pos; symbol = to_string symbol }
   | _ -> failwith "term_from_json_list: invalid json list"
 
 type instruction = {
@@ -38,14 +35,15 @@ type instruction = {
 }
 [@@deriving show]
 
-let instruction_from_json json =
-  let index = JsonU.member "index" json |> JsonU.to_int
-  and opcode = JsonU.member "opcode" json |> JsonU.to_string |> opcode_of_string
-  and arg = JsonU.member "arg" json |> JsonU.to_int_option
-  and term = JsonU.member "term" json |> JsonU.to_option term_fo_json_list in
-  { index; opcode; arg; term }
+let instruction_of_json json =
+  JsonUtil.(
+    let index = member "index" json |> to_int
+    and opcode = member "opcode" json |> to_string |> opcode_of_string
+    and arg = member "arg" json |> to_int_option
+    and term = member "term" json |> to_option term_of_json_list in
+    { index; opcode; arg; term })
 
 let program_from_file filename =
-  Json.from_file filename |> JsonU.to_list
-  |> List.map instruction_from_json
+  Json.from_file filename |> JsonUtil.to_list
+  |> List.map instruction_of_json
   |> Array.of_list
