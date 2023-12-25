@@ -34,22 +34,14 @@ let data_memory_sel : opcode -> data_memory_sel = function
 
 let signal_data_memory_wr sel data_path =
   match sel with
-  | Inc ->
+  | Inc | Dec ->
       {
         data_path with
         data_memory =
-          (let mem = Array.copy data_path.data_memory in
+          (let mem = Array.copy data_path.data_memory
+           and change = if sel == Inc then 1 else -1 in
            mem.(data_path.data_address) <-
-             data_path.data_memory.(data_path.data_address) + 1;
-           mem);
-      }
-  | Dec ->
-      {
-        data_path with
-        data_memory =
-          (let mem = Array.copy data_path.data_memory in
-           mem.(data_path.data_address) <-
-             data_path.data_memory.(data_path.data_address) - 1;
+             data_path.data_memory.(data_path.data_address) + change;
            mem);
       }
   | Input -> (

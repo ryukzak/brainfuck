@@ -177,7 +177,7 @@ let mpc_of_opcode : opcode -> int = function
    signals with arguments (selectors).
 
    If signal is not presented in the list -- that means zero signals. *)
-let mprogram =
+let mprogram: signal list array =
   [|
     (* Instructin Fetch *)
     (* 0  *) [ LatchMpc Opcode ];
