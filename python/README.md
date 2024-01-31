@@ -1,8 +1,8 @@
 # Brainfuck. Транслятор и модель
 
 - Преподаватели, Пенской Александр Владимирович.
-- `brainfuck | bf | harv | hw | instr | struct | stream | port | - | - | -`
-- Без усложнения.
+- `brainfuck -> bf_asm | bf | harv | hw | instr | struct | stream | port | - | - | -`
+- Базовый вариант.
 
 Примечания:
 
