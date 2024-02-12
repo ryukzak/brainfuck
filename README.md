@@ -8,6 +8,8 @@ It includes:
 
     `brainfuck | bf | harv | hw | instr | struct | stream | port | - | - | -`
 
+    Also includes Asm translator: [./python/README_asm.md](../ak_dopsa/brainfuck/python/README_asm.md)
+
 1. [./ocaml/](./ocaml/) -- processor model implemented in OCaml language in functional style.
 
     - machine cli: [./ocaml/machine_cli.ml](./ocaml/machine_cli.ml)
