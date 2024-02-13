@@ -9,7 +9,7 @@
 ``` ebnf
 program ::= { line }
 
-line ::= label: [ comment ] "\n"
+line ::= label [ comment ] "\n"
        | instr [ comment ] "\n"
        | [ comment ] "\n"
 
