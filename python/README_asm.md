@@ -9,21 +9,24 @@
 ``` ebnf
 program ::= { line }
 
-line ::= [ label ] [ instr ] [ comment ] "\n"
+line ::= label: [ comment ] "\n"
+       | instr [ comment ] "\n"
+       | [ comment ] "\n"
 
 label ::= label_name ":"
 
-instr ::= "increment"
-        | "decrement"
-        | "right"
-        | "left"
-        | "print"
-        | "input"
-        | "jmp" arg
-        | "jz" arg
+instr ::= op0
+        | op1 label_name
 
-arg ::= integer
-      | label_name
+op0 ::= "increment"
+      | "decrement"
+      | "right"
+      | "left"
+      | "print"
+      | "input"
+
+op1 ::= "jmp"
+      | "jz"
 
 integer ::= [ "-" ] { <any of "0-9"> }-
 
@@ -70,4 +73,5 @@ jmp label   ; --> `jmp 123`, где 123 - номер инструкции пос
 Реализован в модуле [translator_asm](./translator_asm.py)
 
 Ассемблерные мнемоники один в один транслируются в машинные команды.
+
 Метки из программы исчезают, а на место обращений к ним подставляются конкретные адреса.

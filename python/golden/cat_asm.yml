@@ -1,0 +1,48 @@
+lang: asm
+in_source: |-
+  ; Данный пример генерирует идентичный машинный код, что и программа на brainfuck:
+  ;
+  ; ,[.,]
+  ;
+  ; Каждый символ brainfuck соответствует одной инструкции на Asm.
+          input     ; ,
+  loop:   jz break  ; [
+          print     ; .
+          input     ; ,
+          jmp loop  ; ]
+  break:  halt      ; конец файла
+in_stdin: |-
+  foo
+out_code: |-
+  [{"index": 0, "opcode": "input", "term": [6, 9, "input"]},
+   {"index": 1, "opcode": "jz", "arg": 5, "term": [7, 9, "jz break"]},
+   {"index": 2, "opcode": "print", "term": [8, 9, "print"]},
+   {"index": 3, "opcode": "input", "term": [9, 9, "input"]},
+   {"index": 4, "opcode": "jmp", "arg": 1, "term": [10, 9, "jmp loop"]},
+   {"index": 5, "opcode": "halt", "term": [11, 9, "halt"]}]
+out_stdout: |
+  source LoC: 11 code instr: 6
+  ============================================================
+  foo
+  instr_counter:  11 ticks: 21
+out_log: |
+  DEBUG   machine:simulation    TICK:   0 PC:   0 ADDR:   0 MEM_OUT: 0 ACC: 0 	input  ('input'@6:9)
+  DEBUG   machine:signal_wr     input: 'f'
+  DEBUG   machine:simulation    TICK:   2 PC:   1 ADDR:   0 MEM_OUT: 102 ACC: 0 	jz 5  ('jz break'@7:9)
+  DEBUG   machine:simulation    TICK:   4 PC:   2 ADDR:   0 MEM_OUT: 102 ACC: 102 	print  ('print'@8:9)
+  DEBUG   machine:signal_output output: '' << 'f'
+  DEBUG   machine:simulation    TICK:   6 PC:   3 ADDR:   0 MEM_OUT: 102 ACC: 102 	input  ('input'@9:9)
+  DEBUG   machine:signal_wr     input: 'o'
+  DEBUG   machine:simulation    TICK:   8 PC:   4 ADDR:   0 MEM_OUT: 111 ACC: 102 	jmp 1  ('jmp loop'@10:9)
+  DEBUG   machine:simulation    TICK:   9 PC:   1 ADDR:   0 MEM_OUT: 111 ACC: 102 	jz 5  ('jz break'@7:9)
+  DEBUG   machine:simulation    TICK:  11 PC:   2 ADDR:   0 MEM_OUT: 111 ACC: 111 	print  ('print'@8:9)
+  DEBUG   machine:signal_output output: 'f' << 'o'
+  DEBUG   machine:simulation    TICK:  13 PC:   3 ADDR:   0 MEM_OUT: 111 ACC: 111 	input  ('input'@9:9)
+  DEBUG   machine:signal_wr     input: 'o'
+  DEBUG   machine:simulation    TICK:  15 PC:   4 ADDR:   0 MEM_OUT: 111 ACC: 111 	jmp 1  ('jmp loop'@10:9)
+  DEBUG   machine:simulation    TICK:  16 PC:   1 ADDR:   0 MEM_OUT: 111 ACC: 111 	jz 5  ('jz break'@7:9)
+  DEBUG   machine:simulation    TICK:  18 PC:   2 ADDR:   0 MEM_OUT: 111 ACC: 111 	print  ('print'@8:9)
+  DEBUG   machine:signal_output output: 'fo' << 'o'
+  DEBUG   machine:simulation    TICK:  20 PC:   3 ADDR:   0 MEM_OUT: 111 ACC: 111 	input  ('input'@9:9)
+  WARNING machine:simulation    Input buffer is empty!
+  INFO    machine:simulation    output_buffer: 'foo'

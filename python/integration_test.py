@@ -22,6 +22,7 @@ import unittest
 import machine
 import pytest
 import translator
+import translator_asm
 
 
 @pytest.mark.golden_test("golden/*.yml")
@@ -48,6 +49,7 @@ def test_translator_and_machine(golden, caplog):
 
     - `in_source` -- исходный код
     - `in_stdin` -- данные на ввод процессора для симуляции
+    - `lang` -- язык: "bf" (по умолчанию) или "asm"
 
     Выход:
 
@@ -60,8 +62,12 @@ def test_translator_and_machine(golden, caplog):
 
     # Создаём временную папку для тестирования приложения.
     with tempfile.TemporaryDirectory() as tmpdirname:
+        # Определяем язык golden теста. По умолчанию предполагается язык Brainfuck
+        lang = golden.get("lang", "bf")
+        assert lang == "bf" or lang == "asm"
+
         # Готовим имена файлов для входных и выходных данных.
-        source = os.path.join(tmpdirname, "source.bf")
+        source = os.path.join(tmpdirname, "source." + lang)
         input_stream = os.path.join(tmpdirname, "input.txt")
         target = os.path.join(tmpdirname, "target.o")
 
@@ -74,7 +80,10 @@ def test_translator_and_machine(golden, caplog):
         # Запускаем транслятор и собираем весь стандартный вывод в переменную
         # stdout
         with contextlib.redirect_stdout(io.StringIO()) as stdout:
-            translator.main(source, target)
+            if lang == "bf":
+                translator.main(source, target)
+            elif lang == "asm":
+                translator_asm.main(source, target)
             print("============================================================")
             machine.main(target, input_stream)
 

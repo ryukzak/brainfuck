@@ -17,24 +17,24 @@ def translate(text):
 
     2. Подстановка адресов меток в инструкции.
     """
-    labels, instrs = parse(text)
+    labels, code = parse(text)
 
-    for instr in instrs:
-        if "arg" in instr and isinstance(instr["arg"], str):
+    for instr in code:
+        if "arg" in instr:
             # у инструкции есть аргумент, и этот аргумент - строка (название метки)
             label = instr["arg"]
             assert label in labels, "Undefined label: {}".format(label)
             # подставляем адрес
             instr["arg"] = labels[label]
 
-    return instrs
+    return code
 
 
 def parse(text):
     """Разбор текста на словарь с определением меток и список машинных инструкций."""
     pc = 0
     labels = {}
-    instrs = []
+    code = []
 
     for line_num, raw_line in enumerate(text.splitlines(), 1):
         line = remove_comment(raw_line)
@@ -54,10 +54,10 @@ def parse(text):
         term = Term(line_num, col, line)
 
         instr = parse_instr(line, pc, term)
-        instrs.append(instr)
+        code.append(instr)
         pc += 1
 
-    return labels, instrs
+    return labels, code
 
 
 def remove_comment(line):
@@ -97,9 +97,7 @@ def parse_instr(line, index, term):
     if arg is not None:
         assert opcode == Opcode.JZ or opcode == Opcode.JMP, "Only `jz` and `jnz` instructions take an argument"
         assert len(parts) == 2, "Trailing characters"
-
-        if not is_valid_label_name(arg):
-            arg = int(arg)
+        assert is_valid_label_name(arg), "Invalid label name: {}".format(arg)
 
         # порядок полей такой же, как в трансляторе brainfuck
         return {"index": index, "opcode": opcode, "arg": arg, "term": term}
