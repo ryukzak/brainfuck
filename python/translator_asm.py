@@ -2,107 +2,79 @@
 """Транслятор Asm в машинный код.
 """
 
-import re
 import sys
 
 from isa import Opcode, Term, write_code
 
 
-def translate(text):
-    """Трансляция текста программы на Asm в машинный код.
-
-    Выполняется в два этапа:
-
-    1. Разбор текста на метки и инструкции.
-
-    2. Подстановка адресов меток в инструкции.
+def get_meaningful_token(line):
+    """Извлекаем из строки содержательный токен (метка или инструкция), удаляем
+    комментарии и пробелы в начале/конце строки.
     """
-    labels, code = parse(text)
-
-    for instr in code:
-        if "arg" in instr:
-            # у инструкции есть аргумент, и этот аргумент - строка (название метки)
-            label = instr["arg"]
-            assert label in labels, "Undefined label: {}".format(label)
-            # подставляем адрес
-            instr["arg"] = labels[label]
-
-    return code
+    return line.split(";", 1)[0].strip()
 
 
-def parse(text):
-    """Разбор текста на словарь с определением меток и список машинных инструкций."""
-    pc = 0
-    labels = {}
+def translate_stage_1(text):
+    """Первый проход транлятора. Преобразование текста программы в список
+    инструкций и определение адресов меток.
+
+    Особенность: транслятор ожидает что в строке может быть либо 1 метка,
+    либо 1 инструкция. По этому: `col` заполняется всегда 0, так как не несёт
+    смысловой нагрузки.
+    """
     code = []
+    labels = {}
 
     for line_num, raw_line in enumerate(text.splitlines(), 1):
-        line = remove_comment(raw_line)
-
-        line, label = parse_label(line)
-        if label is not None:
-            assert label not in labels, "Redefinition of label: {}".format(label)
-            # адрес метки - адрес следующей инструкции
-            labels[label] = pc
-
-        if not line:
-            # на строке нет инструкции
+        token = get_meaningful_token(raw_line)
+        if token == "":
             continue
 
-        # вычисляем номер столбца, с которого начинается инструкция
-        col = raw_line.find(line) + 1
-        term = Term(line_num, col, line)
+        pc = len(code)
 
-        instr = parse_instr(line, pc, term)
-        code.append(instr)
-        pc += 1
+        if token.endswith(":"):  # токен содержит метку
+            label = token.strip(":")
+            assert label not in labels, "Redefinition of label: {}".format(label)
+            labels[label] = pc
+        elif " " in token:  # токен содержит инструкцию с операндом (отделены пробелом)
+            sub_tokens = token.split(" ")
+            assert len(sub_tokens) == 2, "Invalid instruction: {}".format(token)
+            mnemonic, arg = sub_tokens
+            opcode = Opcode(mnemonic)
+            assert opcode == Opcode.JZ or opcode == Opcode.JMP, "Only `jz` and `jnz` instructions take an argument"
+            code.append({"index": pc, "opcode": opcode, "arg": arg, "term": Term(line_num, 0, token)})
+        else:  # токен содержит инструкцию без операндов
+            opcode = Opcode(token)
+            code.append({"index": pc, "opcode": opcode, "term": Term(line_num, 0, token)})
 
     return labels, code
 
 
-def remove_comment(line):
-    """Удаляет комментарий, начинающийся с `;` из строки."""
-    return line.split(";", 1)[0].strip()
+def translate_stage_2(labels, code):
+    """Второй проход транслятора. В уже определённые инструкции подставляются
+    адреса меток."""
+    for instruction in code:
+        if "arg" in instruction:
+            label = instruction["arg"]
+            assert label in labels, "Label not defined: " + label
+            instruction["arg"] = labels[label]
+    return code
 
 
-def is_valid_label_name(name):
-    """Проверяет название метки на корректность синтаксиса."""
-    return re.match(r"^[a-zA-Z_][a-zA-Z0-9_]*$", name)
+def translate(text):
+    """Трансляция текста программы на Asm в машинный код.
 
+    Выполняется в два прохода:
 
-def parse_label(line):
-    """Достает из строки метку, если она присутствует, и проверяет ее на корректность.
+    1. Разбор текста на метки и инструкции.
 
-    Возвращает остаток строки и название метки (или `None`, если метки нет)"""
-    parts = line.split(":", 1)
-    if len(parts) == 1:
-        return line, None
+    2. Подстановка адресов меток в операнды инструкции.
+    """
+    labels, code = translate_stage_1(text)
+    code = translate_stage_2(labels, code)
 
-    label = parts[0].strip()
-    rest = parts[1].strip()
-
-    assert is_valid_label_name(label), "Invalid label name: {}".format(label)
-
-    return rest, label
-
-
-def parse_instr(line, index, term):
-    """Разбирает инструкцию из строки. Конвертирует мнемонику в опкод, а аргумент - в число."""
-    parts = line.split(None)
-
-    mnemonic = parts[0]
-    opcode = Opcode(mnemonic)
-
-    arg = parts[1] if len(parts) > 1 else None
-    if arg is not None:
-        assert opcode == Opcode.JZ or opcode == Opcode.JMP, "Only `jz` and `jnz` instructions take an argument"
-        assert len(parts) == 2, "Trailing characters"
-        assert is_valid_label_name(arg), "Invalid label name: {}".format(arg)
-
-        # порядок полей такой же, как в трансляторе brainfuck
-        return {"index": index, "opcode": opcode, "arg": arg, "term": term}
-
-    return {"index": index, "opcode": opcode, "term": term}
+    # ruff: noqa: RET504
+    return code
 
 
 def main(source, target):
