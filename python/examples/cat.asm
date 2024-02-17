@@ -4,8 +4,10 @@
         ;
         ; Каждый символ brainfuck соответствует одной инструкции на Asm.
         input     ; ,
-loop:   jz break  ; [
+loop:
+        jz break  ; [
         print     ; .
         input     ; ,
         jmp loop  ; ]
-break:  halt      ; конец файла
+break:
+        halt      ; конец файла
