@@ -270,15 +270,18 @@ comment ::= <any symbols except: "><+-.,[]">
 
 ## Тестирование
 
-В качестве тестов использовано два алгоритма (в задании 3 + алгоритм по варианту):
+Тестирование выполняется при помощи golden test-ов.
 
-1. [hello world](examples/hello.bf).
-2. [cat](examples/cat.bf) -- программа `cat`, повторяем ввод на выводе.
+1. Тесты для языка `bf` реализованы в: [golden_bf_test.py](./golden_bf_test.py). Конфигурации:
+    - [golden/cat_bf.yml](golden/cat_bf.yml)
+    - [golden/hello_bf.yml](golden/hello_bf.yml)
+1. Тесты для языка `asm` реализованы в: [golden_asm_test.py](./golden_asm_test.py). Конфигурации:
+    - [golden/cat_asm.yml](golden/cat_asm.yml)
+1. Традиционные интеграционные тесты: [integration_test.py](./integration_test.py) (Depricated).
 
-Интеграционные тесты реализованы тут [integration_test](./integration_test.py) в двух вариантах:
+Запустить тесты: `poetry run pytest . -v`
 
-- через golden tests, конфигурация которых лежит в папке [golden](./golden) (требуются по заданию).
-- через unittest (приведён как **устаревший** пример).
+Обновить конфигурацию golden tests:  `poetry run pytest . -v --update-goldens`
 
 CI при помощи Github Action:
 
@@ -394,7 +397,7 @@ INFO:root:output_buffer: 'foo\n'
 Пример проверки исходного кода:
 
 ``` shell
-$ poetry run pytest . -v --update-goldens
+$ poetry run pytest . -v
 =================================== test session starts ====================================
 platform darwin -- Python 3.12.0, pytest-7.4.3, pluggy-1.3.0 -- /Users/ryukzak/Library/Caches/pypoetry/virtualenvs/brainfuck-NIOcuFng-py3.12/bin/python
 cachedir: .pytest_cache
