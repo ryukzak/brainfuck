@@ -38,7 +38,6 @@ def test_translator_and_machine(golden, caplog):
 
     - `in_source` -- исходный код
     - `in_stdin` -- данные на ввод процессора для симуляции
-    - `lang` -- язык: "bf" (по умолчанию) или "asm"
 
     Выход:
 
