@@ -14,7 +14,7 @@
 import logging
 import sys
 
-from isa import Opcode, from_bytes, read_code
+from isa import Opcode, from_bytes
 
 
 class DataPath:
@@ -246,6 +246,7 @@ class ControlUnit:
         self.program_counter = 0
         self.data_path = data_path
         self._tick = 0
+        self.step = 0
 
     def tick(self):
         """Продвинуть модельное время процессора вперёд на один такт."""
@@ -268,36 +269,6 @@ class ControlUnit:
             assert "arg" in instr, "internal error"
             self.program_counter = instr["arg"]
 
-    def decode_and_execute_control_flow_instruction(self, instr, opcode):
-        """Декодировать и выполнить инструкцию управления потоком исполнения. В
-        случае успеха -- вернуть `True`, чтобы перейти к следующей инструкции.
-        """
-        if opcode is Opcode.HALT:
-            raise StopIteration()
-
-        if opcode is Opcode.JMP:
-            addr = instr["arg"]
-            self.program_counter = addr
-            self.tick()
-
-            return True
-
-        if opcode is Opcode.JZ:
-            addr = instr["arg"]
-
-            self.data_path.signal_latch_acc()
-            self.tick()
-
-            if self.data_path.zero():
-                self.signal_latch_program_counter(sel_next=False)
-            else:
-                self.signal_latch_program_counter(sel_next=True)
-            self.tick()
-
-            return True
-
-        return False
-
     def decode_and_execute_instruction(self):
         """Основной цикл процессора. Декодирует и выполняет инструкцию.
 
@@ -319,35 +290,71 @@ class ControlUnit:
         instr = self.program[self.program_counter]
         opcode = instr["opcode"]
 
-        if self.decode_and_execute_control_flow_instruction(instr, opcode):
+        if opcode is Opcode.HALT:
+            raise StopIteration()
+
+        if opcode is Opcode.JMP:
+            addr = instr["arg"]
+            self.program_counter = addr
+            self.step = 0
+            self.tick()
             return
+
+        if opcode is Opcode.JZ:
+            if self.step == 0:
+                addr = instr["arg"]
+                self.data_path.signal_latch_acc()
+                self.step = 1
+                self.tick()
+                return
+            if self.step == 1:
+                if self.data_path.zero():
+                    self.signal_latch_program_counter(sel_next=False)
+                else:
+                    self.signal_latch_program_counter(sel_next=True)
+                self.step = 0
+                self.tick()
+                return
 
         if opcode in {Opcode.RIGHT, Opcode.LEFT}:
             self.data_path.signal_latch_data_addr(opcode.value)
             self.signal_latch_program_counter(sel_next=True)
+            self.step = 0
             self.tick()
+            return
 
         elif opcode in {Opcode.INC, Opcode.DEC, Opcode.INPUT}:
-            self.data_path.signal_latch_acc()
-            self.tick()
-
-            self.data_path.signal_wr(opcode.value)
-            self.signal_latch_program_counter(sel_next=True)
-            self.tick()
+            if self.step == 0:
+                self.data_path.signal_latch_acc()
+                self.step = 1
+                self.tick()
+                return
+            if self.step == 1:
+                self.data_path.signal_wr(opcode.value)
+                self.signal_latch_program_counter(sel_next=True)
+                self.step = 0
+                self.tick()
+                return
 
         elif opcode is Opcode.PRINT:
-            self.data_path.signal_latch_acc()
-            self.tick()
-
-            self.data_path.signal_output()
-            self.signal_latch_program_counter(sel_next=True)
-            self.tick()
+            if self.step == 0:
+                self.data_path.signal_latch_acc()
+                self.step = 1
+                self.tick()
+                return
+            if self.step == 1:
+                self.data_path.signal_output()
+                self.signal_latch_program_counter(sel_next=True)
+                self.step = 0
+                self.tick()
+                return
 
     def __repr__(self):
         """Вернуть строковое представление состояния процессора."""
-        state_repr = "TICK: {:3} PC: {:3} ADDR: {:3} MEM_OUT: {} ACC: {}".format(
+        state_repr = "TICK: {:3} PC: {:3}/{} ADDR: {:3} MEM_OUT: {} ACC: {}".format(
             self._tick,
             self.program_counter,
+            self.step,
             self.data_path.data_address,
             self.data_path.data_memory[self.data_path.data_address],
             self.data_path.acc,
@@ -404,12 +411,9 @@ def main(code_file, input_file):
     """Функция запуска модели процессора. Параметры -- имена файлов с машинным
     кодом и с входными данными для симуляции.
     """
-    if code_file.endswith(".bin"):
-        with open(code_file, "rb") as file:
-            binary_code = file.read()
-        code = from_bytes(binary_code)
-    else:
-        code = read_code(code_file)
+    with open(code_file, "rb") as file:
+        binary_code = file.read()
+    code = from_bytes(binary_code)
 
     with open(input_file, encoding="utf-8") as file:
         input_text = file.read()

@@ -3,3 +3,4 @@ MD007: # Unordered list indentation
   indent: 4
 MD051: false # Link fragments should be valid
 MD036: false # Emphasis used instead of a heading
+MD010: false # Hard tabs

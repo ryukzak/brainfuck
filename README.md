@@ -8,19 +8,19 @@ It includes:
 
     - with brainfuck language: [./python/README.md](./python/README.md)
 
-        `brainfuck | bf | harv | hw | instr | struct | stream | port | - | - | -`
+        `bf_lang | bf_isa | harv | hw | tick | binary | stream | port | - | - | -`
 
     - with asm language: [./python/README_asm.md](./python/README_asm.md)
 
-        `asm | bf | harv | hw | instr | struct | stream | port | - | - | -`
+        `bf_asm | bf_isa | harv | hw | tick | binary | stream | port | - | - | -`
 
 1. [./ocaml/](./ocaml/) -- processor model implemented in OCaml language in functional style.
 
     - machine cli: [./ocaml/machine_cli.ml](./ocaml/machine_cli.ml)
     - with a hardwired control unit: [./ocaml/hardwired.ml](./ocaml/hardwired.ml)
 
-        `- | bf | harv | hw | instr | struct | stream | port | - | - | -`
+        `- | - | harv | hw | tick | json | stream | port | - | - | -`
 
     - with a microcoded control unit: [./ocaml/microcoded.ml](./ocaml/microcoded.ml)
 
-        `- | bf | harv | mc | instr | struct | stream | port | - | - | -`
+        `- | - | harv | mc | tick | json | stream | port | - | - | -`
