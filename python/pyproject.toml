@@ -5,6 +5,7 @@ description = "An example project for Computer System Architecture class."
 authors = ["Aleksandr Penskoi <aleksandr.penskoi@gmail.com>"]
 license = "BSD"
 readme = "README.md"
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.11"
