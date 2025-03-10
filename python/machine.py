@@ -14,7 +14,7 @@
 import logging
 import sys
 
-from isa import Opcode, read_code
+from isa import Opcode, from_bytes, read_code
 
 
 class DataPath:
@@ -404,7 +404,13 @@ def main(code_file, input_file):
     """Функция запуска модели процессора. Параметры -- имена файлов с машинным
     кодом и с входными данными для симуляции.
     """
-    code = read_code(code_file)
+    if code_file.endswith(".bin"):
+        with open(code_file, "rb") as file:
+            binary_code = file.read()
+        code = from_bytes(binary_code)
+    else:
+        code = read_code(code_file)
+
     with open(input_file, encoding="utf-8") as file:
         input_text = file.read()
         input_token = []

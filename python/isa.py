@@ -142,7 +142,7 @@ binary_to_opcode = {
 }
 
 
-def to_binary(code):
+def to_bytes(code):
     """Преобразует машинный код в бинарное представление.
 
     Бинарное представление инструкций:
@@ -179,7 +179,7 @@ def to_hex(code):
     Например:
     20 - 03340301 - add #01 <- 34 + #03
     """
-    binary_code = to_binary(code)
+    binary_code = to_bytes(code)
     result = []
 
     for i in range(0, len(binary_code), 4):
@@ -207,7 +207,7 @@ def to_hex(code):
     return "\n".join(result)
 
 
-def from_binary(binary_code):
+def from_bytes(binary_code):
     """Преобразует бинарное представление машинного кода в структурированный формат.
 
     Бинарное представление инструкций:
@@ -217,21 +217,17 @@ def from_binary(binary_code):
     │  опкод  │                      адрес перехода                         │
     └─────────┴─────────────────────────────────────────────────────────────┘
     """
-    # Словарь соответствия бинарного представления кодам операций
-    binary_to_opcode = {
-        0x0: Opcode.INC,  # 0000
-        0x1: Opcode.DEC,  # 0001
-        0x2: Opcode.LEFT,  # 0010
-        0x3: Opcode.RIGHT,  # 0011
-        0x4: Opcode.PRINT,  # 0100
-        0x5: Opcode.INPUT,  # 0101
-        0x6: Opcode.JMP,  # 0110
-        0x7: Opcode.JZ,  # 0111
-        0x8: Opcode.HALT,  # 1000
-    }
-
     structured_code = []
-    for i, binary_instr in enumerate(binary_code):
+    # Обрабатываем байты по 4 за раз для получения 32-битных инструкций
+    for i in range(0, len(binary_code), 4):
+        if i + 3 >= len(binary_code):
+            break
+
+        # Формируем 32-битное слово из 4 байтов
+        binary_instr = (
+            (binary_code[i] << 24) | (binary_code[i + 1] << 16) | (binary_code[i + 2] << 8) | binary_code[i + 3]
+        )
+
         # Извлекаем опкод (старшие 4 бита)
         opcode_bin = (binary_instr >> 28) & 0xF
         opcode = binary_to_opcode[opcode_bin]
@@ -240,7 +236,7 @@ def from_binary(binary_code):
         arg = binary_instr & 0x0FFFFFFF
 
         # Формируем структуру инструкции
-        instr = {"index": i, "opcode": opcode}
+        instr = {"index": i // 4, "opcode": opcode}
 
         # Добавляем адрес перехода только для инструкций перехода
         if opcode in (Opcode.JMP, Opcode.JZ):

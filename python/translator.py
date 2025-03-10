@@ -5,7 +5,7 @@
 import os
 import sys
 
-from isa import Opcode, Term, to_binary, to_hex, write_code
+from isa import Opcode, Term, to_bytes, to_hex, write_code
 
 
 def symbols():
@@ -104,7 +104,7 @@ def main(source, target):
     os.makedirs(os.path.dirname(os.path.abspath(target)) or ".", exist_ok=True)
 
     if target.endswith(".bin"):
-        binary_code = to_binary(code)
+        binary_code = to_bytes(code)
         hex_code = to_hex(code)
         with open(target, "wb") as f:
             f.write(binary_code)

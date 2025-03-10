@@ -41,7 +41,8 @@ def test_translator_and_machine(golden, caplog):
 
     Выход:
 
-    - `out_code` -- машинный код, сгенерированный транслятором
+    - `out_hex` -- аннотированный машинный код
+    - `out_binary` -- бинарный файл в base64
     - `out_stdout` -- стандартный вывод транслятора и симулятора
     - `out_log` -- журнал программы
     """
@@ -53,7 +54,8 @@ def test_translator_and_machine(golden, caplog):
         # Готовим имена файлов для входных и выходных данных.
         source = os.path.join(tmpdirname, "source.bf")
         input_stream = os.path.join(tmpdirname, "input.txt")
-        target = os.path.join(tmpdirname, "target.o")
+        target = os.path.join(tmpdirname, "target.bin")
+        target_hex = os.path.join(tmpdirname, "target.bin.hex")
 
         # Записываем входные данные в файлы. Данные берутся из теста.
         with open(source, "w", encoding="utf-8") as file:
@@ -69,10 +71,13 @@ def test_translator_and_machine(golden, caplog):
             machine.main(target, input_stream)
 
         # Выходные данные также считываем в переменные.
-        with open(target, encoding="utf-8") as file:
+        with open(target, "rb") as file:
             code = file.read()
+        with open(target_hex, encoding="utf-8") as file:
+            code_hex = file.read()
 
         # Проверяем, что ожидания соответствуют реальности.
         assert code == golden.out["out_code"]
+        assert code_hex == golden.out["out_code_hex"]
         assert stdout.getvalue() == golden.out["out_stdout"]
         assert caplog.text == golden.out["out_log"]
