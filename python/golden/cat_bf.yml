@@ -4,32 +4,6 @@ in_stdin: |-
   foo
 out_code: !!binary |
   UAAAAHAAAAVAAAAAUAAAAGAAAAGAAAAA
-out_stdout: |
-  source LoC: 1 code instr: 6
-  ============================================================
-  foo
-  instr_counter:  11 ticks: 21
-out_log: |
-  DEBUG   machine:simulation    TICK:   0 PC:   0 ADDR:   0 MEM_OUT: 0 ACC: 0 	input
-  DEBUG   machine:signal_wr     input: 'f'
-  DEBUG   machine:simulation    TICK:   2 PC:   1 ADDR:   0 MEM_OUT: 102 ACC: 0 	jz 5
-  DEBUG   machine:simulation    TICK:   4 PC:   2 ADDR:   0 MEM_OUT: 102 ACC: 102 	print
-  DEBUG   machine:signal_output output: '' << 'f'
-  DEBUG   machine:simulation    TICK:   6 PC:   3 ADDR:   0 MEM_OUT: 102 ACC: 102 	input
-  DEBUG   machine:signal_wr     input: 'o'
-  DEBUG   machine:simulation    TICK:   8 PC:   4 ADDR:   0 MEM_OUT: 111 ACC: 102 	jmp 1
-  DEBUG   machine:simulation    TICK:   9 PC:   1 ADDR:   0 MEM_OUT: 111 ACC: 102 	jz 5
-  DEBUG   machine:simulation    TICK:  11 PC:   2 ADDR:   0 MEM_OUT: 111 ACC: 111 	print
-  DEBUG   machine:signal_output output: 'f' << 'o'
-  DEBUG   machine:simulation    TICK:  13 PC:   3 ADDR:   0 MEM_OUT: 111 ACC: 111 	input
-  DEBUG   machine:signal_wr     input: 'o'
-  DEBUG   machine:simulation    TICK:  15 PC:   4 ADDR:   0 MEM_OUT: 111 ACC: 111 	jmp 1
-  DEBUG   machine:simulation    TICK:  16 PC:   1 ADDR:   0 MEM_OUT: 111 ACC: 111 	jz 5
-  DEBUG   machine:simulation    TICK:  18 PC:   2 ADDR:   0 MEM_OUT: 111 ACC: 111 	print
-  DEBUG   machine:signal_output output: 'fo' << 'o'
-  DEBUG   machine:simulation    TICK:  20 PC:   3 ADDR:   0 MEM_OUT: 111 ACC: 111 	input
-  WARNING machine:simulation    Input buffer is empty!
-  INFO    machine:simulation    output_buffer: 'foo'
 out_code_hex: |-
   0 - 50000000 - input
   1 - 70000005 - jz 5
@@ -37,3 +11,40 @@ out_code_hex: |-
   3 - 50000000 - input
   4 - 60000001 - jmp 1
   5 - 80000000 - halt
+out_stdout: |
+  source LoC: 1 code instr: 6
+  ============================================================
+  foo
+  ticks: 21
+out_log: |-
+  DEBUG   machine:simulation    TICK:   0 PC:   0/0 ADDR:   0 MEM_OUT: 0 ACC: 0 	input
+  DEBUG   machine:simulation    TICK:   1 PC:   0/1 ADDR:   0 MEM_OUT: 0 ACC: 0 	input
+  DEBUG   machine:signal_wr     input: 'f'
+  DEBUG   machine:simulation    TICK:   2 PC:   1/0 ADDR:   0 MEM_OUT: 102 ACC: 0 	jz 5
+  DEBUG   machine:simulation    TICK:   3 PC:   1/1 ADDR:   0 MEM_OUT: 102 ACC: 102 	jz 5
+  DEBUG   machine:simulation    TICK:   4 PC:   2/0 ADDR:   0 MEM_OUT: 102 ACC: 102 	print
+  DEBUG   machine:simulation    TICK:   5 PC:   2/1 ADDR:   0 MEM_OUT: 102 ACC: 102 	print
+  DEBUG   machine:signal_output output: '' << 'f'
+  DEBUG   machine:simulation    TICK:   6 PC:   3/0 ADDR:   0 MEM_OUT: 102 ACC: 102 	input
+  DEBUG   machine:simulation    TICK:   7 PC:   3/1 ADDR:   0 MEM_OUT: 102 ACC: 102 	input
+  DEBUG   machine:signal_wr     input: 'o'
+  DEBUG   machine:simulation    TICK:   8 PC:   4/0 ADDR:   0 MEM_OUT: 111 ACC: 102 	jmp 1
+  DEBUG   machine:simulation    TICK:   9 PC:   1/0 ADDR:   0 MEM_OUT: 111 ACC: 102 	jz 5
+  DEBUG   machine:simulation    TICK:  10 PC:   1/1 ADDR:   0 MEM_OUT: 111 ACC: 111 	jz 5
+  DEBUG   machine:simulation    TICK:  11 PC:   2/0 ADDR:   0 MEM_OUT: 111 ACC: 111 	print
+  DEBUG   machine:simulation    TICK:  12 PC:   2/1 ADDR:   0 MEM_OUT: 111 ACC: 111 	print
+  DEBUG   machine:signal_output output: 'f' << 'o'
+  DEBUG   machine:simulation    TICK:  13 PC:   3/0 ADDR:   0 MEM_OUT: 111 ACC: 111 	input
+  DEBUG   machine:simulation    TICK:  14 PC:   3/1 ADDR:   0 MEM_OUT: 111 ACC: 111 	input
+  DEBUG   machine:signal_wr     input: 'o'
+  DEBUG   machine:simulation    TICK:  15 PC:   4/0 ADDR:   0 MEM_OUT: 111 ACC: 111 	jmp 1
+  DEBUG   machine:simulation    TICK:  16 PC:   1/0 ADDR:   0 MEM_OUT: 111 ACC: 111 	jz 5
+  DEBUG   machine:simulation    TICK:  17 PC:   1/1 ADDR:   0 MEM_OUT: 111 ACC: 111 	jz 5
+  DEBUG   machine:simulation    TICK:  18 PC:   2/0 ADDR:   0 MEM_OUT: 111 ACC: 111 	print
+  DEBUG   machine:simulation    TICK:  19 PC:   2/1 ADDR:   0 MEM_OUT: 111 ACC: 111 	print
+  DEBUG   machine:signal_output output: 'fo' << 'o'
+  DEBUG   machine:simulation    TICK:  20 PC:   3/0 ADDR:   0 MEM_OUT: 111 ACC: 111 	input
+  DEBUG   machine:simulation    TICK:  21 PC:   3/1 ADDR:   0 MEM_OUT: 111 ACC: 111 	input
+  WARNING machine:simulation    Input buffer is empty!
+  INFO    machine:simulation    output_buffer: 'foo'
+  EOF

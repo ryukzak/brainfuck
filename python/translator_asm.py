@@ -2,6 +2,7 @@
 """Транслятор Asm в машинный код.
 """
 
+import os
 import sys
 
 from isa import Opcode, Term, to_bytes, to_hex

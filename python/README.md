@@ -11,11 +11,13 @@
         - [Набор инструкций](#набор-инструкций)
         - [Кодирование инструкций](#кодирование-инструкций)
             - [Бинарное представление](#бинарное-представление)
+            - [JSON представление](#json-представление)
     - [Транслятор](#транслятор)
     - [Модель процессора](#модель-процессора)
         - [DataPath](#datapath)
         - [ControlUnit](#controlunit)
     - [Тестирование](#тестирование)
+- [Footnotes](#footnotes)
 
 <!-- markdown-toc end -->
 
@@ -146,7 +148,7 @@ comment ::= <any symbols except: "><+-.,[]">
 - Машинный код сериализуется в список JSON.
 - Один элемент списка -- одна инструкция.
 - Индекс списка -- адрес инструкции. Используется для команд перехода.
-- Используется для работы с OCaml демо (legicy).
+- Используется для работы с OCaml демо (legacy).
 
 Пример:
 
@@ -321,7 +323,6 @@ comment ::= <any symbols except: "><+-.,[]">
     - [golden/hello_bf.yml](golden/hello_bf.yml)
 1. Тесты для языка `asm` реализованы в: [golden_asm_test.py](./golden_asm_test.py). Конфигурации:
     - [golden/cat_asm.yml](golden/cat_asm.yml)
-1. Традиционные интеграционные тесты: [integration_test.py](./integration_test.py) (Deprecated).
 
 Запустить тесты: `poetry run pytest . -v`
 
@@ -335,10 +336,9 @@ $ cat examples/cat.bf
 ,[.,]
 $ ./translator.py examples/cat.bf out/target.bin
 source LoC: 2 code instr: 6
-$ hexdump out/target.bin
-0000000 0050 0000 0070 0500 0040 0000 0050 0000
-0000010 0060 0100 0080 0000
-0000018
+$ xxd out/target.bin
+00000000: 5000 0000 7000 0005 4000 0000 5000 0000  P...p...@...P...
+00000010: 6000 0001 8000 0000                      `.......
 $ cat out/target.bin.hex
 0 - 50000000 - input
 1 - 70000005 - jz 5
@@ -391,5 +391,5 @@ WARNING:root:Input buffer is empty!
 INFO:root:output_buffer: 'foo\n'
 foo
 
-instr_counter:  15 ticks: 28
+ticks: 28
 ```

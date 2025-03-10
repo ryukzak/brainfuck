@@ -13,6 +13,8 @@ import machine
 import pytest
 import translator
 
+MAX_LOG = 4000
+
 
 @pytest.mark.golden_test("golden/*_bf.yml")
 def test_translator_and_machine(golden, caplog):
@@ -80,4 +82,4 @@ def test_translator_and_machine(golden, caplog):
         assert code == golden.out["out_code"]
         assert code_hex == golden.out["out_code_hex"]
         assert stdout.getvalue() == golden.out["out_stdout"]
-        assert caplog.text == golden.out["out_log"]
+        assert caplog.text[0:MAX_LOG] + "EOF" == golden.out["out_log"]

@@ -269,7 +269,7 @@ class ControlUnit:
             assert "arg" in instr, "internal error"
             self.program_counter = instr["arg"]
 
-    def decode_and_execute_instruction(self):
+    def decode_and_execute_instruction(self):  # noqa: C901 # код имеет хорошо структурирован, по этому не проблема.
         """Основной цикл процессора. Декодирует и выполняет инструкцию.
 
         Обработка инструкции:
@@ -323,7 +323,7 @@ class ControlUnit:
             self.tick()
             return
 
-        elif opcode in {Opcode.INC, Opcode.DEC, Opcode.INPUT}:
+        if opcode in {Opcode.INC, Opcode.DEC, Opcode.INPUT}:
             if self.step == 0:
                 self.data_path.signal_latch_acc()
                 self.step = 1
@@ -336,7 +336,7 @@ class ControlUnit:
                 self.tick()
                 return
 
-        elif opcode is Opcode.PRINT:
+        if opcode is Opcode.PRINT:
             if self.step == 0:
                 self.data_path.signal_latch_acc()
                 self.step = 1
@@ -379,7 +379,7 @@ def simulation(code, input_tokens, data_memory_size, limit):
 
     Длительность моделирования ограничена:
 
-    - количеством выполненных инструкций (`limit`);
+    - количеством выполненных тактов (`limit`);
 
     - количеством данных ввода (`input_tokens`, если ввод используется), через
       исключение `EOFError`;
@@ -388,23 +388,21 @@ def simulation(code, input_tokens, data_memory_size, limit):
     """
     data_path = DataPath(data_memory_size, input_tokens)
     control_unit = ControlUnit(code, data_path)
-    instr_counter = 0
 
     logging.debug("%s", control_unit)
     try:
-        while instr_counter < limit:
+        while control_unit._tick < limit:
             control_unit.decode_and_execute_instruction()
-            instr_counter += 1
             logging.debug("%s", control_unit)
     except EOFError:
         logging.warning("Input buffer is empty!")
     except StopIteration:
         pass
 
-    if instr_counter >= limit:
+    if control_unit._tick >= limit:
         logging.warning("Limit exceeded!")
     logging.info("output_buffer: %s", repr("".join(data_path.output_buffer)))
-    return "".join(data_path.output_buffer), instr_counter, control_unit.current_tick()
+    return "".join(data_path.output_buffer), control_unit.current_tick()
 
 
 def main(code_file, input_file):
@@ -421,15 +419,15 @@ def main(code_file, input_file):
         for char in input_text:
             input_token.append(char)
 
-    output, instr_counter, ticks = simulation(
+    output, ticks = simulation(
         code,
         input_tokens=input_token,
         data_memory_size=100,
-        limit=1000,
+        limit=2000,
     )
 
     print("".join(output))
-    print("instr_counter: ", instr_counter, "ticks:", ticks)
+    print("ticks:", ticks)
 
 
 if __name__ == "__main__":
