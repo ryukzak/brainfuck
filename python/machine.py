@@ -269,7 +269,7 @@ class ControlUnit:
             assert "arg" in instr, "internal error"
             self.program_counter = instr["arg"]
 
-    def decode_and_execute_instruction(self):  # noqa: C901 # код имеет хорошо структурирован, по этому не проблема.
+    def process_next_tick(self):  # noqa: C901 # код имеет хорошо структурирован, по этому не проблема.
         """Основной цикл процессора. Декодирует и выполняет инструкцию.
 
         Обработка инструкции:
@@ -390,7 +390,7 @@ def simulation(code, input_tokens, data_memory_size, limit):
     logging.debug("%s", control_unit)
     try:
         while control_unit._tick < limit:
-            control_unit.decode_and_execute_instruction()
+            control_unit.process_next_tick()
             logging.debug("%s", control_unit)
     except EOFError:
         logging.warning("Input buffer is empty!")
