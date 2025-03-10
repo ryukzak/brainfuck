@@ -63,52 +63,47 @@ out_stdout: |
 
   ticks: 1532
 out_log: |-
-  DEBUG   machine:simulation    TICK:   0 PC:   0/0 ADDR:   0 MEM_OUT: 0 ACC: 0 	jz 24
-  DEBUG   machine:simulation    TICK:   1 PC:   0/1 ADDR:   0 MEM_OUT: 0 ACC: 0 	jz 24
-  DEBUG   machine:simulation    TICK:   2 PC:  24/0 ADDR:   0 MEM_OUT: 0 ACC: 0 	increment
-  DEBUG   machine:simulation    TICK:   3 PC:  24/1 ADDR:   0 MEM_OUT: 0 ACC: 0 	increment
-  DEBUG   machine:simulation    TICK:   4 PC:  25/0 ADDR:   0 MEM_OUT: 1 ACC: 0 	increment
-  DEBUG   machine:simulation    TICK:   5 PC:  25/1 ADDR:   0 MEM_OUT: 1 ACC: 1 	increment
-  DEBUG   machine:simulation    TICK:   6 PC:  26/0 ADDR:   0 MEM_OUT: 2 ACC: 1 	increment
-  DEBUG   machine:simulation    TICK:   7 PC:  26/1 ADDR:   0 MEM_OUT: 2 ACC: 2 	increment
-  DEBUG   machine:simulation    TICK:   8 PC:  27/0 ADDR:   0 MEM_OUT: 3 ACC: 2 	increment
-  DEBUG   machine:simulation    TICK:   9 PC:  27/1 ADDR:   0 MEM_OUT: 3 ACC: 3 	increment
-  DEBUG   machine:simulation    TICK:  10 PC:  28/0 ADDR:   0 MEM_OUT: 4 ACC: 3 	increment
-  DEBUG   machine:simulation    TICK:  11 PC:  28/1 ADDR:   0 MEM_OUT: 4 ACC: 4 	increment
-  DEBUG   machine:simulation    TICK:  12 PC:  29/0 ADDR:   0 MEM_OUT: 5 ACC: 4 	increment
-  DEBUG   machine:simulation    TICK:  13 PC:  29/1 ADDR:   0 MEM_OUT: 5 ACC: 5 	increment
-  DEBUG   machine:simulation    TICK:  14 PC:  30/0 ADDR:   0 MEM_OUT: 6 ACC: 5 	increment
-  DEBUG   machine:simulation    TICK:  15 PC:  30/1 ADDR:   0 MEM_OUT: 6 ACC: 6 	increment
-  DEBUG   machine:simulation    TICK:  16 PC:  31/0 ADDR:   0 MEM_OUT: 7 ACC: 6 	increment
-  DEBUG   machine:simulation    TICK:  17 PC:  31/1 ADDR:   0 MEM_OUT: 7 ACC: 7 	increment
-  DEBUG   machine:simulation    TICK:  18 PC:  32/0 ADDR:   0 MEM_OUT: 8 ACC: 7 	jz 73
-  DEBUG   machine:simulation    TICK:  19 PC:  32/1 ADDR:   0 MEM_OUT: 8 ACC: 8 	jz 73
-  DEBUG   machine:simulation    TICK:  20 PC:  33/0 ADDR:   0 MEM_OUT: 8 ACC: 8 	right
-  DEBUG   machine:simulation    TICK:  21 PC:  34/0 ADDR:   1 MEM_OUT: 0 ACC: 8 	increment
-  DEBUG   machine:simulation    TICK:  22 PC:  34/1 ADDR:   1 MEM_OUT: 0 ACC: 0 	increment
-  DEBUG   machine:simulation    TICK:  23 PC:  35/0 ADDR:   1 MEM_OUT: 1 ACC: 0 	increment
-  DEBUG   machine:simulation    TICK:  24 PC:  35/1 ADDR:   1 MEM_OUT: 1 ACC: 1 	increment
-  DEBUG   machine:simulation    TICK:  25 PC:  36/0 ADDR:   1 MEM_OUT: 2 ACC: 1 	increment
-  DEBUG   machine:simulation    TICK:  26 PC:  36/1 ADDR:   1 MEM_OUT: 2 ACC: 2 	increment
-  DEBUG   machine:simulation    TICK:  27 PC:  37/0 ADDR:   1 MEM_OUT: 3 ACC: 2 	increment
-  DEBUG   machine:simulation    TICK:  28 PC:  37/1 ADDR:   1 MEM_OUT: 3 ACC: 3 	increment
-  DEBUG   machine:simulation    TICK:  29 PC:  38/0 ADDR:   1 MEM_OUT: 4 ACC: 3 	jz 58
-  DEBUG   machine:simulation    TICK:  30 PC:  38/1 ADDR:   1 MEM_OUT: 4 ACC: 4 	jz 58
-  DEBUG   machine:simulation    TICK:  31 PC:  39/0 ADDR:   1 MEM_OUT: 4 ACC: 4 	right
-  DEBUG   machine:simulation    TICK:  32 PC:  40/0 ADDR:   2 MEM_OUT: 0 ACC: 4 	increment
-  DEBUG   machine:simulation    TICK:  33 PC:  40/1 ADDR:   2 MEM_OUT: 0 ACC: 0 	increment
-  DEBUG   machine:simulation    TICK:  34 PC:  41/0 ADDR:   2 MEM_OUT: 1 ACC: 0 	increment
-  DEBUG   machine:simulation    TICK:  35 PC:  41/1 ADDR:   2 MEM_OUT: 1 ACC: 1 	increment
-  DEBUG   machine:simulation    TICK:  36 PC:  42/0 ADDR:   2 MEM_OUT: 2 ACC: 1 	right
-  DEBUG   machine:simulation    TICK:  37 PC:  43/0 ADDR:   3 MEM_OUT: 0 ACC: 1 	increment
-  DEBUG   machine:simulation    TICK:  38 PC:  43/1 ADDR:   3 MEM_OUT: 0 ACC: 0 	increment
-  DEBUG   machine:simulation    TICK:  39 PC:  44/0 ADDR:   3 MEM_OUT: 1 ACC: 0 	increment
-  DEBUG   machine:simulation    TICK:  40 PC:  44/1 ADDR:   3 MEM_OUT: 1 ACC: 1 	increment
-  DEBUG   machine:simulation    TICK:  41 PC:  45/0 ADDR:   3 MEM_OUT: 2 ACC: 1 	increment
-  DEBUG   machine:simulation    TICK:  42 PC:  45/1 ADDR:   3 MEM_OUT: 2 ACC: 2 	increment
-  DEBUG   machine:simulation    TICK:  43 PC:  46/0 ADDR:   3 MEM_OUT: 3 ACC: 2 	right
-  DEBUG   machine:simulation    TICK:  44 PC:  47/0 ADDR:   4 MEM_OUT: 0 ACC: 2 	increment
-  DEBUG   machine:simulation    TICK:EOF
+  DEBUG   machine:simulation    TICK:   0 PC:   0/0 ADDR:   0 MEM_OUT: 0 ACC: 0 	jz 24 [70000018]
+  DEBUG   machine:simulation    TICK:   1 PC:   0/1 ADDR:   0 MEM_OUT: 0 ACC: 0 	jz 24 [70000018]
+  DEBUG   machine:simulation    TICK:   2 PC:  24/0 ADDR:   0 MEM_OUT: 0 ACC: 0 	increment [00000000]
+  DEBUG   machine:simulation    TICK:   3 PC:  24/1 ADDR:   0 MEM_OUT: 0 ACC: 0 	increment [00000000]
+  DEBUG   machine:simulation    TICK:   4 PC:  25/0 ADDR:   0 MEM_OUT: 1 ACC: 0 	increment [00000000]
+  DEBUG   machine:simulation    TICK:   5 PC:  25/1 ADDR:   0 MEM_OUT: 1 ACC: 1 	increment [00000000]
+  DEBUG   machine:simulation    TICK:   6 PC:  26/0 ADDR:   0 MEM_OUT: 2 ACC: 1 	increment [00000000]
+  DEBUG   machine:simulation    TICK:   7 PC:  26/1 ADDR:   0 MEM_OUT: 2 ACC: 2 	increment [00000000]
+  DEBUG   machine:simulation    TICK:   8 PC:  27/0 ADDR:   0 MEM_OUT: 3 ACC: 2 	increment [00000000]
+  DEBUG   machine:simulation    TICK:   9 PC:  27/1 ADDR:   0 MEM_OUT: 3 ACC: 3 	increment [00000000]
+  DEBUG   machine:simulation    TICK:  10 PC:  28/0 ADDR:   0 MEM_OUT: 4 ACC: 3 	increment [00000000]
+  DEBUG   machine:simulation    TICK:  11 PC:  28/1 ADDR:   0 MEM_OUT: 4 ACC: 4 	increment [00000000]
+  DEBUG   machine:simulation    TICK:  12 PC:  29/0 ADDR:   0 MEM_OUT: 5 ACC: 4 	increment [00000000]
+  DEBUG   machine:simulation    TICK:  13 PC:  29/1 ADDR:   0 MEM_OUT: 5 ACC: 5 	increment [00000000]
+  DEBUG   machine:simulation    TICK:  14 PC:  30/0 ADDR:   0 MEM_OUT: 6 ACC: 5 	increment [00000000]
+  DEBUG   machine:simulation    TICK:  15 PC:  30/1 ADDR:   0 MEM_OUT: 6 ACC: 6 	increment [00000000]
+  DEBUG   machine:simulation    TICK:  16 PC:  31/0 ADDR:   0 MEM_OUT: 7 ACC: 6 	increment [00000000]
+  DEBUG   machine:simulation    TICK:  17 PC:  31/1 ADDR:   0 MEM_OUT: 7 ACC: 7 	increment [00000000]
+  DEBUG   machine:simulation    TICK:  18 PC:  32/0 ADDR:   0 MEM_OUT: 8 ACC: 7 	jz 73 [70000049]
+  DEBUG   machine:simulation    TICK:  19 PC:  32/1 ADDR:   0 MEM_OUT: 8 ACC: 8 	jz 73 [70000049]
+  DEBUG   machine:simulation    TICK:  20 PC:  33/0 ADDR:   0 MEM_OUT: 8 ACC: 8 	right [30000000]
+  DEBUG   machine:simulation    TICK:  21 PC:  34/0 ADDR:   1 MEM_OUT: 0 ACC: 8 	increment [00000000]
+  DEBUG   machine:simulation    TICK:  22 PC:  34/1 ADDR:   1 MEM_OUT: 0 ACC: 0 	increment [00000000]
+  DEBUG   machine:simulation    TICK:  23 PC:  35/0 ADDR:   1 MEM_OUT: 1 ACC: 0 	increment [00000000]
+  DEBUG   machine:simulation    TICK:  24 PC:  35/1 ADDR:   1 MEM_OUT: 1 ACC: 1 	increment [00000000]
+  DEBUG   machine:simulation    TICK:  25 PC:  36/0 ADDR:   1 MEM_OUT: 2 ACC: 1 	increment [00000000]
+  DEBUG   machine:simulation    TICK:  26 PC:  36/1 ADDR:   1 MEM_OUT: 2 ACC: 2 	increment [00000000]
+  DEBUG   machine:simulation    TICK:  27 PC:  37/0 ADDR:   1 MEM_OUT: 3 ACC: 2 	increment [00000000]
+  DEBUG   machine:simulation    TICK:  28 PC:  37/1 ADDR:   1 MEM_OUT: 3 ACC: 3 	increment [00000000]
+  DEBUG   machine:simulation    TICK:  29 PC:  38/0 ADDR:   1 MEM_OUT: 4 ACC: 3 	jz 58 [7000003A]
+  DEBUG   machine:simulation    TICK:  30 PC:  38/1 ADDR:   1 MEM_OUT: 4 ACC: 4 	jz 58 [7000003A]
+  DEBUG   machine:simulation    TICK:  31 PC:  39/0 ADDR:   1 MEM_OUT: 4 ACC: 4 	right [30000000]
+  DEBUG   machine:simulation    TICK:  32 PC:  40/0 ADDR:   2 MEM_OUT: 0 ACC: 4 	increment [00000000]
+  DEBUG   machine:simulation    TICK:  33 PC:  40/1 ADDR:   2 MEM_OUT: 0 ACC: 0 	increment [00000000]
+  DEBUG   machine:simulation    TICK:  34 PC:  41/0 ADDR:   2 MEM_OUT: 1 ACC: 0 	increment [00000000]
+  DEBUG   machine:simulation    TICK:  35 PC:  41/1 ADDR:   2 MEM_OUT: 1 ACC: 1 	increment [00000000]
+  DEBUG   machine:simulation    TICK:  36 PC:  42/0 ADDR:   2 MEM_OUT: 2 ACC: 1 	right [30000000]
+  DEBUG   machine:simulation    TICK:  37 PC:  43/0 ADDR:   3 MEM_OUT: 0 ACC: 1 	increment [00000000]
+  DEBUG   machine:simulation    TICK:  38 PC:  43/1 ADDR:   3 MEM_OUT: 0 ACC: 0 	increment [00000000]
+  DEBUG   machine:simulation    TICK:  39 PC:  44/0 ADDR:   3 MEM_OUT: 1 ACC: 0 	increment [00000000]
+  DEBUG   machine:simulation    TICK: EOF
 out_code_hex: |-
   0 - 70000018 - jz 24
   1 - 50000000 - input

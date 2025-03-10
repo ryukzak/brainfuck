@@ -5,7 +5,7 @@
 import os
 import sys
 
-from isa import Opcode, Term, to_bytes, to_hex, write_code
+from isa import Opcode, Term, to_bytes, to_hex, write_json
 
 
 def symbols():
@@ -102,16 +102,20 @@ def main(source, target):
     binary_code = to_bytes(code)
     hex_code = to_hex(code)
 
-    # Ensure target directory exists
+    # Убедимся, что каталог назначения существует
     os.makedirs(os.path.dirname(os.path.abspath(target)) or ".", exist_ok=True)
+
+    # Запишим выходные файлы
     if target.endswith(".bin"):
         with open(target, "wb") as f:
             f.write(binary_code)
         with open(target + ".hex", "w") as f:
             f.write(hex_code)
     else:
-        write_code(target, code)
+        write_json(target, code)
 
+    # Обратите внимание, что память данных не экспортируется в файл, так как
+    # в случае brainfuck она может быть инициализирована только 0.
     print("source LoC:", len(source.split("\n")), "code instr:", len(code))
 
 

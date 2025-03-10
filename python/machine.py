@@ -14,7 +14,7 @@
 import logging
 import sys
 
-from isa import Opcode, from_bytes
+from isa import Opcode, from_bytes, opcode_to_binary
 
 
 class DataPath:
@@ -367,11 +367,9 @@ class ControlUnit:
         if "arg" in instr:
             instr_repr += " {}".format(instr["arg"])
 
-        if "term" in instr:
-            term = instr["term"]
-            instr_repr += "  ('{}'@{}:{})".format(term.symbol, term.line, term.pos)
+        instr_hex = f"{opcode_to_binary[opcode] << 28 | (instr.get('arg', 0) & 0x0FFFFFFF):08X}"
 
-        return "{} \t{}".format(state_repr, instr_repr)
+        return "{} \t{} [{}]".format(state_repr, instr_repr, instr_hex)
 
 
 def simulation(code, input_tokens, data_memory_size, limit):
