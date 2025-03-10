@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "brainfuck"
-version = "0.1.1"
+version = "0.2.0"
 description = "An example project for Computer System Architecture class."
 authors = ["Aleksandr Penskoi <aleksandr.penskoi@gmail.com>"]
 license = "BSD"
@@ -89,8 +89,9 @@ ignore = [
     # to simplify code for non-Python programmers
     "PTH118", # `os.path.join()` should be replaced by `Path` with `/` operator
     "UP032",  # [*] Use f-string instead of `format` call
-
-
+    "PTH103", # `os.makedirs()` should be replaced by `Path.mkdir(parents=True)`
+    "PTH120", # `os.path.dirname()` should be replaced by `Path.parent`
+    "PTH100", # `os.path.abspath()` should be replaced by `Path.resolve()`
 ]
 unfixable = [
     "ERA001", # prohibit to "auto-fix" (=remove) commented-out code

@@ -2,9 +2,10 @@
 """Транслятор brainfuck в машинный код.
 """
 
+import os
 import sys
 
-from isa import Opcode, Term, write_code
+from isa import Opcode, Term, to_binary, to_hex, write_code
 
 
 def symbols():
@@ -99,7 +100,18 @@ def main(source, target):
 
     code = translate(source)
 
-    write_code(target, code)
+    # Ensure target directory exists
+    os.makedirs(os.path.dirname(os.path.abspath(target)) or ".", exist_ok=True)
+
+    if target.endswith(".bin"):
+        binary_code = to_binary(code)
+        hex_code = to_hex(code)
+        with open(target, "wb") as f:
+            f.write(binary_code)
+        with open(target + ".hex", "w") as f:
+            f.write(hex_code)
+    else:
+        write_code(target, code)
     print("source LoC:", len(source.split("\n")), "code instr:", len(code))
 
 
