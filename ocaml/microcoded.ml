@@ -56,9 +56,9 @@ type pc_sel =
   | Next  (** Increment PC *)
   | Jmp  (** Set PC from instructon arg *)
   | Jz
-      (** If data_path.zero == 0 then same as for Jmp else same as for Next.
-        We have it only in Microcoded version because jmp_type should be selected
-        by signal from microcode. *)
+      (** If data_path.zero == 0 then same as for Jmp else same as for Next. We
+          have it only in Microcoded version because jmp_type should be selected
+          by signal from microcode. *)
 [@@deriving show]
 
 (** All possible control signals in processor *)
@@ -155,13 +155,10 @@ let rec simulate limit log_limit cu =
 (************************************************************)
 (* Machine execution *)
 
-(** If opcode is a number from 0 to N, we can simply map it
-  to first microinstruction for specific command by memory. E.g.:
+(** If opcode is a number from 0 to N, we can simply map it to first
+    microinstruction for specific command by memory. E.g.:
 
-  0: 1
-  1: 2
-  3: 3
-  4: 5 ... *)
+    0: 1 1: 2 3: 3 4: 5 ... *)
 let mpc_of_opcode : opcode -> int = function
   | Left -> 1
   | Right -> 2
