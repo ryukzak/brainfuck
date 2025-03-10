@@ -99,19 +99,19 @@ def main(source, target):
         source = f.read()
 
     code = translate(source)
+    binary_code = to_bytes(code)
+    hex_code = to_hex(code)
 
     # Ensure target directory exists
     os.makedirs(os.path.dirname(os.path.abspath(target)) or ".", exist_ok=True)
-
     if target.endswith(".bin"):
-        binary_code = to_bytes(code)
-        hex_code = to_hex(code)
         with open(target, "wb") as f:
             f.write(binary_code)
         with open(target + ".hex", "w") as f:
             f.write(hex_code)
     else:
         write_code(target, code)
+
     print("source LoC:", len(source.split("\n")), "code instr:", len(code))
 
 

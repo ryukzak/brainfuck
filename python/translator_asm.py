@@ -4,7 +4,7 @@
 
 import sys
 
-from isa import Opcode, Term, write_code
+from isa import Opcode, Term, to_bytes, to_hex
 
 
 def get_meaningful_token(line):
@@ -83,8 +83,16 @@ def main(source, target):
         source = f.read()
 
     code = translate(source)
+    binary_code = to_bytes(code)
+    hex_code = to_hex(code)
 
-    write_code(target, code)
+    # Ensure target directory exists
+    os.makedirs(os.path.dirname(os.path.abspath(target)) or ".", exist_ok=True)
+    with open(target, "wb") as f:
+        f.write(binary_code)
+    with open(target + ".hex", "w") as f:
+        f.write(hex_code)
+
     print("source LoC:", len(source.split("\n")), "code instr:", len(code))
 
 
