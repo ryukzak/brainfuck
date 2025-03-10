@@ -7,11 +7,11 @@ It includes:
 1. [./python/](./python/) -- full report example, and well-documented translator and machine implementation in Python language. All descriptions are in Russian.
 
     - with brainfuck language: [./python/README.md](./python/README.md)
-    
+
         `brainfuck | bf | harv | hw | instr | struct | stream | port | - | - | -`
 
     - with asm language: [./python/README_asm.md](./python/README_asm.md)
-    
+
         `asm | bf | harv | hw | instr | struct | stream | port | - | - | -`
 
 1. [./ocaml/](./ocaml/) -- processor model implemented in OCaml language in functional style.
