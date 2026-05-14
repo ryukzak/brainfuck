@@ -24,7 +24,7 @@
 ---
 
 - Преподаватель: Пенской Александр Владимирович.
-- `bf_lang | bf_isa | harv | hw | tick | binary | stream | port | - | - | -`
+- `bf_lang | bf_isa | harv | hw | instr | binary | stream | port | - | - | -`
 
 Примечания:
 
